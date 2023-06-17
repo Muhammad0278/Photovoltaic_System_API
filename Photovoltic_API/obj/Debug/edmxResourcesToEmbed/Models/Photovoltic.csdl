@@ -15,31 +15,10 @@
   </EntityType>
   <EntityContainer Name="DB_WeatherEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Users" EntityType="Self.User" />
-    <EntitySet Name="tbl_Products" EntityType="DB_WeatherModel.tbl_Products" />
     <EntitySet Name="tbl_Projects" EntityType="DB_WeatherModel.tbl_Projects" />
+    <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
+    <EntitySet Name="tbl_Products" EntityType="DB_WeatherModel.tbl_Products" />
   </EntityContainer>
-  <EntityType Name="tbl_Products">
-    <Key>
-      <PropertyRef Name="ProductID" />
-    </Key>
-    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="ProjectID" Type="Int32" />
-    <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="UserID" Type="Int32" />
-    <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Date" Type="DateTime" Precision="3" />
-    <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Wattage" Type="Double" />
-    <Property Name="Efficiency" Type="Decimal" Precision="5" Scale="2" />
-    <Property Name="WarrantyYears" Type="Int32" />
-    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
-    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
-    <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
-    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="IsActive" Type="Boolean" />
-  </EntityType>
   <EntityType Name="tbl_Projects">
     <Key>
       <PropertyRef Name="ProjectID" />
@@ -65,5 +44,51 @@
     <Property Name="UserID" Type="Int32" />
     <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tbl_ProductAssignment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" />
+    <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
+    <Property Name="Powerpeak" Type="Double" />
+    <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="inclination" Type="Double" />
+    <Property Name="area" Type="Double" />
+    <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectID" Type="Int32" />
+    <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Wattage" Type="Double" />
+    <Property Name="Efficiency" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="WarrantyYears" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="Powerpeak" Type="Double" />
+    <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="inclination" Type="Double" />
+    <Property Name="area" Type="Double" />
   </EntityType>
 </Schema>

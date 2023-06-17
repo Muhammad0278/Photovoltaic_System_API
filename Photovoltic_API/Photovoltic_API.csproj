@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AesOperation.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Login.cs" />
+    <Compile Include="Controllers\ProductAssignmentController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\Register.cs" />
@@ -196,6 +197,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Photovoltic.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ProductAssignment.cs">
+      <DependentUpon>Photovoltic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Products.cs">
       <DependentUpon>Photovoltic.tt</DependentUpon>
@@ -293,6 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ProductAssignment\" />
     <Folder Include="Views\Products\" />
     <Folder Include="Views\Projects\" />
   </ItemGroup>

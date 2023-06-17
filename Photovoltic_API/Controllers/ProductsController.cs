@@ -35,6 +35,7 @@ namespace Photovoltic_API.Controllers
         [HttpGet]
         public object GetAllProject(int UserID)
         {
+
             var json = "";
             var resp = new Response();
             JavaScriptSerializer _jss = new JavaScriptSerializer();
@@ -221,6 +222,45 @@ namespace Photovoltic_API.Controllers
                     resp.Code = 200;
                     resp.Status = "success";
                     resp.Message = "Project Deleted successfully..";
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                resp.Code = 404;
+                resp.Status = "Bad Resquest";
+                resp.Message = ex.Message;
+            }
+            json = _jss.Serialize(resp);
+            return json;
+        }
+
+        [Route("GetProducts")]
+        [HttpGet]
+        public object GetPrByProjectID(int _ProjectID)
+        {
+            var json = "";
+            var resp = new Response();
+            JavaScriptSerializer _jss = new JavaScriptSerializer();
+            try
+            {
+                var tblProjects = DB.tbl_Products.Where(x => x.ProjectID == _ProjectID).ToList();
+
+                if (tblProjects.Count> 0)
+                {
+                    resp.Code = 200;
+                    resp.Status = "success";
+                    resp.Message = "Project Deleted successfully..";
+                    resp.data = tblProjects;
+                   
+                }
+                else
+                {
+                    resp.Code = 401;
+                    resp.Status = "Not Found";
+                    resp.Message = "Record Not Found..";
+
 
                 }
 

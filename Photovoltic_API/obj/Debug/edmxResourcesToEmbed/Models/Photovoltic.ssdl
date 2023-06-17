@@ -1,5 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DB_WeatherModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_ProductAssignment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="255" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="ProductName" Type="varchar" MaxLength="255" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="UserName" Type="varchar" MaxLength="252" />
+    <Property Name="Powerpeak" Type="float" />
+    <Property Name="orientation" Type="varchar" MaxLength="255" />
+    <Property Name="inclination" Type="float" />
+    <Property Name="area" Type="float" />
+    <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
+    <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="ImagePath" Type="varchar(max)" />
+  </EntityType>
   <EntityType Name="tbl_Products">
     <Key>
       <PropertyRef Name="ProductID" />
@@ -21,6 +41,10 @@
     <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
     <Property Name="ImagePath" Type="varchar(max)" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="Powerpeak" Type="float" />
+    <Property Name="orientation" Type="varchar" MaxLength="255" />
+    <Property Name="inclination" Type="float" />
+    <Property Name="area" Type="float" />
   </EntityType>
   <EntityType Name="tbl_Projects">
     <Key>
@@ -62,6 +86,7 @@
     <Property Name="imagepath" Type="nvarchar(max)" />
   </EntityType>
   <EntityContainer Name="DB_WeatherModelStoreContainer">
+    <EntitySet Name="tbl_ProductAssignment" EntityType="Self.tbl_ProductAssignment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Products" EntityType="Self.tbl_Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Projects" EntityType="Self.tbl_Projects" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
