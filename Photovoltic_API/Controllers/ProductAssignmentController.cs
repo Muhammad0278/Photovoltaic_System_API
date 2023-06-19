@@ -84,7 +84,7 @@ namespace Photovoltic_API.Controllers
                           join pj in DB.tbl_Projects on a.ProjectID equals pj.ProjectID
                           join pt in DB.tbl_Products on a.ProductID equals pt.ProductID
                           where a.UserID == UserID
-                          select new {a.ID,a.ProjectName,a.ProjectID,a.ProductName,a.ProductID,pj.Description,pt.Wattage,pt.WarrantyYears,pt.Price,ptDes=pt.Description }).ToList();
+                          select new {a.ID,a.ProjectName,a.ProjectID,a.ProductName,a.ProductID,pj.Description,pt.Wattage,pt.WarrantyYears,pt.Price,ptDes=pt.Description,a.ImagePath }).ToList();
               //  var tbl_ProductAssignment = DB.tbl_ProductAssignment.Join().Where(x => x.UserID == UserID).ToList();
 
                 if (query.Count > 0)
