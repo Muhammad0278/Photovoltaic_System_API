@@ -238,20 +238,21 @@ namespace Photovoltic_API.Controllers
 
         [Route("GetProducts")]
         [HttpGet]
-        public object GetPrByProjectID(int _ProjectID)
+        public object GetPrByProjectID()
         {
             var json = "";
             var resp = new Response();
             JavaScriptSerializer _jss = new JavaScriptSerializer();
             try
             {
-                var tblProjects = DB.tbl_Products.Where(x => x.ProjectID == _ProjectID).ToList();
+
+                var tblProjects = DB.tbl_Products.ToList();
 
                 if (tblProjects.Count> 0)
                 {
                     resp.Code = 200;
                     resp.Status = "success";
-                    resp.Message = "Project Deleted successfully..";
+                    resp.Message = "successfully..";
                     resp.data = tblProjects;
                    
                 }

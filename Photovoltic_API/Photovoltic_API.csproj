@@ -172,6 +172,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AesOperation.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoadMapDataController.cs" />
     <Compile Include="Controllers\Login.cs" />
     <Compile Include="Controllers\ProductAssignmentController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -297,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\LoadMapData\" />
     <Folder Include="Views\ProductAssignment\" />
     <Folder Include="Views\Products\" />
     <Folder Include="Views\Projects\" />

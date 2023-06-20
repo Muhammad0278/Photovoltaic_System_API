@@ -49,11 +49,11 @@ namespace Photovoltic_API.Controllers
                         Pt.area = tblProduct.area;
 
                         //  Pt.Quantity = tblProduct.Quantity;
-                        Pt.Latitude = tblProduct.Latitude;
-                        Pt.Longitude = tblProduct.Longitude;
+                       
                         Pt.ImagePath = tblProduct.ImagePath;
                     }
-
+                    Pt.Latitude = _obj.Latitude;
+                    Pt.Longitude = _obj.Longitude;
                     DB.tbl_ProductAssignment.Add(Pt);
                     DB.SaveChanges();
                     resp.Code = 200;
@@ -70,6 +70,7 @@ namespace Photovoltic_API.Controllers
             json = _jss.Serialize(resp);
             return json;
         }
+
         [Route("GetSelectedProducts")]
         [HttpGet]
         public object GetPrByProjectID(int UserID)
@@ -81,11 +82,11 @@ namespace Photovoltic_API.Controllers
             {
                 var query =
                           (from a in DB.tbl_ProductAssignment
-                          join pj in DB.tbl_Projects on a.ProjectID equals pj.ProjectID
-                          join pt in DB.tbl_Products on a.ProductID equals pt.ProductID
-                          where a.UserID == UserID
-                          select new {a.ID,a.ProjectName,a.ProjectID,a.ProductName,a.ProductID,pj.Description,pt.Wattage,pt.WarrantyYears,pt.Price,ptDes=pt.Description,a.ImagePath }).ToList();
-              //  var tbl_ProductAssignment = DB.tbl_ProductAssignment.Join().Where(x => x.UserID == UserID).ToList();
+                           join pj in DB.tbl_Projects on a.ProjectID equals pj.ProjectID
+                           join pt in DB.tbl_Products on a.ProductID equals pt.ProductID
+                           where a.UserID == UserID
+                           select new { a.ID, a.ProjectName, a.ProjectID, a.ProductName, a.ProductID, pj.Description, pt.Wattage, pt.WarrantyYears, pt.Price, ptDes = pt.Description, a.ImagePath }).ToList();
+                //  var tbl_ProductAssignment = DB.tbl_ProductAssignment.Join().Where(x => x.UserID == UserID).ToList();
 
                 if (query.Count > 0)
                 {
@@ -114,44 +115,44 @@ namespace Photovoltic_API.Controllers
             json = _jss.Serialize(resp);
             return json;
         }
-   
-    [Route("DeleteSelectedProducts")]
-    [HttpDelete]
-    public object DeleteSelectedProduct(int ID)
-    {
-        var json = "";
-        var resp = new Response();
-        JavaScriptSerializer _jss = new JavaScriptSerializer();
-        try
+
+        [Route("DeleteSelectedProducts")]
+        [HttpDelete]
+        public object DeleteSelectedProduct(int ID)
         {
-            var tbl_Product = DB.tbl_ProductAssignment.Where(x => x.ID == ID).FirstOrDefault();
-
-            if (tbl_Product == null)
+            var json = "";
+            var resp = new Response();
+            JavaScriptSerializer _jss = new JavaScriptSerializer();
+            try
             {
-                resp.Code = 401;
-                resp.Status = "Not Found";
-                resp.Message = "Record Not Found..";
+                var tbl_Product = DB.tbl_ProductAssignment.Where(x => x.ID == ID).FirstOrDefault();
+
+                if (tbl_Product == null)
+                {
+                    resp.Code = 401;
+                    resp.Status = "Not Found";
+                    resp.Message = "Record Not Found..";
+                }
+                else
+                {
+                    DB.tbl_ProductAssignment.Remove(tbl_Product);
+                    DB.SaveChanges();
+
+                    resp.Code = 200;
+                    resp.Status = "success";
+                    resp.Message = "Items Deleted successfully..";
+
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                DB.tbl_ProductAssignment.Remove(tbl_Product);
-                DB.SaveChanges();
-
-                resp.Code = 200;
-                resp.Status = "success";
-                resp.Message = "Items Deleted successfully..";
-
+                resp.Code = 404;
+                resp.Status = "Bad Resquest";
+                resp.Message = ex.Message;
             }
-
+            json = _jss.Serialize(resp);
+            return json;
         }
-        catch (Exception ex)
-        {
-            resp.Code = 404;
-            resp.Status = "Bad Resquest";
-            resp.Message = ex.Message;
-        }
-        json = _jss.Serialize(resp);
-        return json;
-    }
     }
 }
