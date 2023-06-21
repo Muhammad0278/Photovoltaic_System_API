@@ -12,12 +12,16 @@
     <Property Name="CreatedDate" Type="DateTime" Precision="7" />
     <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
     <Property Name="imagepath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityContainer Name="DB_WeatherEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="tbl_Projects" EntityType="DB_WeatherModel.tbl_Projects" />
-    <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
     <EntitySet Name="tbl_Products" EntityType="DB_WeatherModel.tbl_Products" />
+    <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
   </EntityContainer>
   <EntityType Name="tbl_Projects">
     <Key>
@@ -45,26 +49,6 @@
     <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" />
   </EntityType>
-  <EntityType Name="tbl_ProductAssignment">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProjectID" Type="Int32" />
-    <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="ProductID" Type="Int32" />
-    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="UserID" Type="Int32" />
-    <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
-    <Property Name="Powerpeak" Type="Double" />
-    <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="inclination" Type="Double" />
-    <Property Name="area" Type="Double" />
-    <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
-    <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
-    <Property Name="Quantity" Type="Int32" />
-    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="tbl_Products">
     <Key>
       <PropertyRef Name="ProductID" />
@@ -90,5 +74,27 @@
     <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="inclination" Type="Double" />
     <Property Name="area" Type="Double" />
+  </EntityType>
+  <EntityType Name="tbl_ProductAssignment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" />
+    <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
+    <Property Name="Powerpeak" Type="Double" />
+    <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="inclination" Type="Double" />
+    <Property Name="area" Type="Double" />
+    <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LatitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LongitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

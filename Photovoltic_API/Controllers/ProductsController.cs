@@ -91,6 +91,7 @@ namespace Photovoltic_API.Controllers
                     Pt.Price = _obj.Price;
                     Pt.Latitude = _obj.Latitude;
                     Pt.Longitude = _obj.Longitude;
+                
                     Pt.UserID = _obj.UserID;
                     Pt.UserName = _obj.UserName;
                     Pt.Description = _obj.Description;

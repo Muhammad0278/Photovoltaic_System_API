@@ -7,8 +7,8 @@
       <Diagram DiagramId="83b57b61cb6947e19d1af53f6f319c1e" Name="Diagram1">
         <EntityTypeShape EntityType="DB_WeatherModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_WeatherModel.tbl_Projects" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DB_WeatherModel.tbl_ProductAssignment" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="DB_WeatherModel.tbl_Products" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DB_WeatherModel.tbl_ProductAssignment" Width="1.5" PointX="5.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

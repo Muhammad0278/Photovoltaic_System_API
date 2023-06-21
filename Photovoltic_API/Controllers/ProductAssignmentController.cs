@@ -31,7 +31,7 @@ namespace Photovoltic_API.Controllers
             {
 
                 tbl_ProductAssignment Pt = new tbl_ProductAssignment();
-                if (Pt.ID == 0)
+                if (_obj.ID == 0)
                 {
                     Pt.UserID = _obj.UserID;
                     Pt.UserName = _obj.UserName;
@@ -54,11 +54,41 @@ namespace Photovoltic_API.Controllers
                     }
                     Pt.Latitude = _obj.Latitude;
                     Pt.Longitude = _obj.Longitude;
+                    Pt.LatitudeNew = Convert.ToString(_obj.Latitude);
+                    Pt.LongitudeNew = Convert.ToString(_obj.Longitude);
                     DB.tbl_ProductAssignment.Add(Pt);
                     DB.SaveChanges();
                     resp.Code = 200;
                     resp.Status = "success";
-                    resp.Message = "ProductInfor Select successfully..";
+                    resp.Message = "Product Infor insert successfully..";
+                }
+                else
+                {
+                    var tblProductAss = DB.tbl_ProductAssignment.Where(x => x.ID == _obj.ID).FirstOrDefault();
+                    if (tblProductAss != null)
+                    {
+                        tblProductAss.ProductID = _obj.ProductID;
+                        tblProductAss.ProductName = _obj.ProductName;
+                        var tblProduct = DB.tbl_Products.Where(x => x.ProductID == _obj.ProductID).FirstOrDefault();
+
+                        if (tblProduct != null)
+                        {
+                            Pt.Powerpeak = tblProduct.Powerpeak;
+                            Pt.orientation = tblProduct.orientation;
+                            Pt.inclination = tblProduct.inclination;
+                            Pt.area = tblProduct.area;
+                            Pt.ImagePath = tblProduct.ImagePath;
+                        }
+                        tblProductAss.Latitude = _obj.Latitude;
+                        tblProductAss.Longitude = _obj.Longitude;
+                        tblProductAss.LatitudeNew = Convert.ToString(_obj.Latitude);
+                        tblProductAss.LongitudeNew = Convert.ToString(_obj.Longitude);
+                        DB.SaveChanges();
+
+                        resp.Code = 200;
+                        resp.Status = "success";
+                        resp.Message = "Product Info Updated successfully..";
+                    }
                 }
             }
             catch (Exception ex)

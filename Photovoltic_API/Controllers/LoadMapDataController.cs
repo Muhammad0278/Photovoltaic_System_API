@@ -36,7 +36,9 @@ namespace Photovoltic_API.Controllers
                           pj.IsActive== Status
                              select new { a.ID, a.ProjectName, a.ProjectID,
                                  a.ProductName, a.ProductID, pj.Description, pt.Wattage, pt.WarrantyYears,
-                                 pt.Price, ptDes = pt.Description, a.ImagePath,pj.IsActive,a.Latitude,a.Longitude 
+                                 pt.Price, ptDes = pt.Description, a.ImagePath,pj.IsActive,
+                                 Latitude=a.LatitudeNew,
+                                 Longitude=a.LongitudeNew 
                                 
                              }).ToList();
 

@@ -29,5 +29,7 @@ namespace Photovoltic_API.Models
         public Nullable<decimal> Longitude { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string ImagePath { get; set; }
+        public string LatitudeNew { get; set; }
+        public string LongitudeNew { get; set; }
     }
 }
