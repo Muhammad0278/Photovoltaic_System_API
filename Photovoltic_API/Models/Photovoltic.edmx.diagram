@@ -9,6 +9,7 @@
         <EntityTypeShape EntityType="DB_WeatherModel.tbl_Projects" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_WeatherModel.tbl_Products" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="DB_WeatherModel.tbl_ProductAssignment" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="DB_WeatherModel.tbl_WeatherData" Width="3.375" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

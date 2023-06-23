@@ -56,6 +56,8 @@ namespace Photovoltic_API.Controllers
                     Pt.Longitude = _obj.Longitude;
                     Pt.LatitudeNew = Convert.ToString(_obj.Latitude);
                     Pt.LongitudeNew = Convert.ToString(_obj.Longitude);
+                    Pt.CreatedDate = DateTime.Now;
+                    Pt.isActive = true;
                     DB.tbl_ProductAssignment.Add(Pt);
                     DB.SaveChanges();
                     resp.Code = 200;

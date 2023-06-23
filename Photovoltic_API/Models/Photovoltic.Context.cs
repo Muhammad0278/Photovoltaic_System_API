@@ -29,5 +29,6 @@ namespace Photovoltic_API.Models
         public virtual DbSet<tbl_Projects> tbl_Projects { get; set; }
         public virtual DbSet<tbl_Products> tbl_Products { get; set; }
         public virtual DbSet<tbl_ProductAssignment> tbl_ProductAssignment { get; set; }
+        public virtual DbSet<tbl_WeatherData> tbl_WeatherData { get; set; }
     }
 }

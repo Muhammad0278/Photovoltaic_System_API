@@ -21,6 +21,8 @@
     <Property Name="ImagePath" Type="varchar(max)" />
     <Property Name="LatitudeNew" Type="varchar(max)" />
     <Property Name="LongitudeNew" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="isActive" Type="bit" />
   </EntityType>
   <EntityType Name="tbl_Products">
     <Key>
@@ -74,6 +76,37 @@
     <Property Name="UserName" Type="varchar" MaxLength="255" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
+  <EntityType Name="tbl_WeatherData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductAssignmentID" Type="int" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="255" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="ProductName" Type="varchar" MaxLength="255" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="UserName" Type="varchar" MaxLength="252" />
+    <Property Name="LocalObservationDateTime" Type="datetime" />
+    <Property Name="EpochTime" Type="nchar" MaxLength="10" />
+    <Property Name="WeatherText" Type="nvarchar" MaxLength="100" />
+    <Property Name="WeatherIcon" Type="int" />
+    <Property Name="HasPrecipitation" Type="bit" />
+    <Property Name="PrecipitationType" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDayTime" Type="bit" />
+    <Property Name="TemperatureMetricValue" Type="float" />
+    <Property Name="TemperatureMetricUnit" Type="nvarchar" MaxLength="50" />
+    <Property Name="TemperatureMetricUnitType" Type="int" />
+    <Property Name="TemperatureImperialValue" Type="int" />
+    <Property Name="TemperatureImperialUnit" Type="nvarchar" MaxLength="50" />
+    <Property Name="TemperatureImperialUnitType" Type="int" />
+    <Property Name="MobileLink" Type="nvarchar" MaxLength="200" />
+    <Property Name="Link" Type="nvarchar" MaxLength="200" />
+    <Property Name="Latitude" Type="varchar(max)" />
+    <Property Name="Longitude" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="Id" />
@@ -95,6 +128,7 @@
     <EntitySet Name="tbl_ProductAssignment" EntityType="Self.tbl_ProductAssignment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Products" EntityType="Self.tbl_Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Projects" EntityType="Self.tbl_Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_WeatherData" EntityType="Self.tbl_WeatherData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

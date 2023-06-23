@@ -31,5 +31,7 @@ namespace Photovoltic_API.Models
         public string ImagePath { get; set; }
         public string LatitudeNew { get; set; }
         public string LongitudeNew { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<bool> isActive { get; set; }
     }
 }

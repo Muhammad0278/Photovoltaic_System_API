@@ -171,6 +171,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AesOperation.cs" />
+    <Compile Include="Controllers\FetchingWeatherController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoadMapDataController.cs" />
     <Compile Include="Controllers\Login.cs" />
@@ -181,6 +182,8 @@
     <Compile Include="Controllers\Response.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WeatherDataController.cs" />
+    <Compile Include="Controllers\WeatherResponse.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,6 +209,9 @@
       <DependentUpon>Photovoltic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Projects.cs">
+      <DependentUpon>Photovoltic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_WeatherData.cs">
       <DependentUpon>Photovoltic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -298,10 +304,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\FetchingWeather\" />
     <Folder Include="Views\LoadMapData\" />
     <Folder Include="Views\ProductAssignment\" />
     <Folder Include="Views\Products\" />
     <Folder Include="Views\Projects\" />
+    <Folder Include="Views\WeatherData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

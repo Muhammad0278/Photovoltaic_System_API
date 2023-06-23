@@ -26,6 +26,8 @@
           <Property Name="ImagePath" Type="varchar(max)" />
           <Property Name="LatitudeNew" Type="varchar(max)" />
           <Property Name="LongitudeNew" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="isActive" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_Products">
           <Key>
@@ -79,6 +81,37 @@
           <Property Name="UserName" Type="varchar" MaxLength="255" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="tbl_WeatherData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductAssignmentID" Type="int" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="255" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ProductName" Type="varchar" MaxLength="255" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="252" />
+          <Property Name="LocalObservationDateTime" Type="datetime" />
+          <Property Name="EpochTime" Type="nchar" MaxLength="10" />
+          <Property Name="WeatherText" Type="nvarchar" MaxLength="100" />
+          <Property Name="WeatherIcon" Type="int" />
+          <Property Name="HasPrecipitation" Type="bit" />
+          <Property Name="PrecipitationType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDayTime" Type="bit" />
+          <Property Name="TemperatureMetricValue" Type="float" />
+          <Property Name="TemperatureMetricUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemperatureMetricUnitType" Type="int" />
+          <Property Name="TemperatureImperialValue" Type="int" />
+          <Property Name="TemperatureImperialUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemperatureImperialUnitType" Type="int" />
+          <Property Name="MobileLink" Type="nvarchar" MaxLength="200" />
+          <Property Name="Link" Type="nvarchar" MaxLength="200" />
+          <Property Name="Latitude" Type="varchar(max)" />
+          <Property Name="Longitude" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -100,6 +133,7 @@
           <EntitySet Name="tbl_ProductAssignment" EntityType="Self.tbl_ProductAssignment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Products" EntityType="Self.tbl_Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Projects" EntityType="Self.tbl_Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_WeatherData" EntityType="Self.tbl_WeatherData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -128,6 +162,7 @@
           <EntitySet Name="tbl_Projects" EntityType="DB_WeatherModel.tbl_Projects" />
           <EntitySet Name="tbl_Products" EntityType="DB_WeatherModel.tbl_Products" />
           <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
+          <EntitySet Name="tbl_WeatherData" EntityType="DB_WeatherModel.tbl_WeatherData" />
         </EntityContainer>
         <EntityType Name="tbl_Projects">
           <Key>
@@ -202,6 +237,39 @@
           <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LatitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LongitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_WeatherData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductAssignmentID" Type="Int32" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
+          <Property Name="LocalObservationDateTime" Type="DateTime" Precision="3" />
+          <Property Name="EpochTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="WeatherText" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WeatherIcon" Type="Int32" />
+          <Property Name="HasPrecipitation" Type="Boolean" />
+          <Property Name="PrecipitationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDayTime" Type="Boolean" />
+          <Property Name="TemperatureMetricValue" Type="Double" />
+          <Property Name="TemperatureMetricUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemperatureMetricUnitType" Type="Int32" />
+          <Property Name="TemperatureImperialValue" Type="Int32" />
+          <Property Name="TemperatureImperialUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemperatureImperialUnitType" Type="Int32" />
+          <Property Name="MobileLink" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Longitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -284,6 +352,8 @@
           <EntitySetMapping Name="tbl_ProductAssignment">
             <EntityTypeMapping TypeName="DB_WeatherModel.tbl_ProductAssignment">
               <MappingFragment StoreEntitySet="tbl_ProductAssignment">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="LongitudeNew" ColumnName="LongitudeNew" />
                 <ScalarProperty Name="LatitudeNew" ColumnName="LatitudeNew" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
@@ -300,6 +370,38 @@
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_WeatherData">
+            <EntityTypeMapping TypeName="DB_WeatherModel.tbl_WeatherData">
+              <MappingFragment StoreEntitySet="tbl_WeatherData">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="MobileLink" ColumnName="MobileLink" />
+                <ScalarProperty Name="TemperatureImperialUnitType" ColumnName="TemperatureImperialUnitType" />
+                <ScalarProperty Name="TemperatureImperialUnit" ColumnName="TemperatureImperialUnit" />
+                <ScalarProperty Name="TemperatureImperialValue" ColumnName="TemperatureImperialValue" />
+                <ScalarProperty Name="TemperatureMetricUnitType" ColumnName="TemperatureMetricUnitType" />
+                <ScalarProperty Name="TemperatureMetricUnit" ColumnName="TemperatureMetricUnit" />
+                <ScalarProperty Name="TemperatureMetricValue" ColumnName="TemperatureMetricValue" />
+                <ScalarProperty Name="IsDayTime" ColumnName="IsDayTime" />
+                <ScalarProperty Name="PrecipitationType" ColumnName="PrecipitationType" />
+                <ScalarProperty Name="HasPrecipitation" ColumnName="HasPrecipitation" />
+                <ScalarProperty Name="WeatherIcon" ColumnName="WeatherIcon" />
+                <ScalarProperty Name="WeatherText" ColumnName="WeatherText" />
+                <ScalarProperty Name="EpochTime" ColumnName="EpochTime" />
+                <ScalarProperty Name="LocalObservationDateTime" ColumnName="LocalObservationDateTime" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProductAssignmentID" ColumnName="ProductAssignmentID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
