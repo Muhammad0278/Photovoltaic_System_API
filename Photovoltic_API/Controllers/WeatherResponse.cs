@@ -14,8 +14,8 @@ namespace Photovoltic_API.Controllers
         [Table(Name = "WeatherData")]
         public class WeatherData
         {
-            [Column(IsPrimaryKey = true)]
-            public int ID { get; set; }
+            //[Column(IsPrimaryKey = true)]
+            //public int ID { get; set; }
 
             //[Column]
             //public int ProductAssignmentID { get; set; }
@@ -42,7 +42,7 @@ namespace Photovoltic_API.Controllers
             public DateTime LocalObservationDateTime { get; set; }
 
             [Column]
-            public int EpochTime { get; set; }
+            public string EpochTime { get; set; }
 
             [Column]
             public string WeatherText { get; set; }
@@ -59,23 +59,23 @@ namespace Photovoltic_API.Controllers
             [Column]
             public bool IsDayTime { get; set; }
 
-            [Column]
-            public double TemperatureMetricValue { get; set; }
+            //[Column]
+            //public double TemperatureMetricValue { get; set; }
+
+            //[Column]
+            //public string TemperatureMetricUnit { get; set; }
+
+            //[Column]
+            //public int TemperatureMetricUnitType { get; set; }
+
+            //[Column]
+            //public int TemperatureImperialValue { get; set; }
+
+            //[Column]
+            //public string TemperatureImperialUnit { get; set; }
 
             [Column]
-            public string TemperatureMetricUnit { get; set; }
-
-            [Column]
-            public int TemperatureMetricUnitType { get; set; }
-
-            [Column]
-            public int TemperatureImperialValue { get; set; }
-
-            [Column]
-            public string TemperatureImperialUnit { get; set; }
-
-            [Column]
-            public int TemperatureImperialUnitType { get; set; }
+            public Temperature Temperature { get; set; }
 
             [Column]
             public string MobileLink { get; set; }
@@ -98,5 +98,29 @@ namespace Photovoltic_API.Controllers
         //    public DB_WeatherEntities(string connectionString) : base(connectionString) { }
         //}
 
+    }
+    public class Imperial
+    {
+        public int Value { get; set; }
+        public string Unit { get; set; }
+        public int UnitType { get; set; }
+    }
+
+    public class Metric
+    {
+        public double Value { get; set; }
+        public string Unit { get; set; }
+        public int UnitType { get; set; }
+    }
+
+    public class Root
+    {
+        public Temperature Temperature { get; set; }
+    }
+
+    public class Temperature
+    {
+        public Metric Metric { get; set; }
+        public Imperial Imperial { get; set; }
     }
 }

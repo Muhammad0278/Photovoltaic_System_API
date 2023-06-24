@@ -1,0 +1,553 @@
+[{
+		"LocalObservationDateTime": "2023-06-23T18:57:00+02:00",
+		"EpochTime": 1687539420,
+		"WeatherText": "Sunny",
+		"WeatherIcon": 1,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 25.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 78,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T17:58:00+02:00",
+		"EpochTime": 1687535880,
+		"WeatherText": "Mostly sunny",
+		"WeatherIcon": 2,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 24.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 76,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T16:57:00+02:00",
+		"EpochTime": 1687532220,
+		"WeatherText": "Mostly sunny",
+		"WeatherIcon": 2,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 23.3,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 74,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T16:00:00+02:00",
+		"EpochTime": 1687528800,
+		"WeatherText": "Partly sunny",
+		"WeatherIcon": 3,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 23.3,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 74,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T15:00:00+02:00",
+		"EpochTime": 1687525200,
+		"WeatherText": "Partly sunny",
+		"WeatherIcon": 3,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 24,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 75,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T14:00:00+02:00",
+		"EpochTime": 1687521600,
+		"WeatherText": "Clouds and sun",
+		"WeatherIcon": 4,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 23,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 73,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T13:00:00+02:00",
+		"EpochTime": 1687518000,
+		"WeatherText": "Clouds and sun",
+		"WeatherIcon": 4,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 22.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 72,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T12:00:00+02:00",
+		"EpochTime": 1687514400,
+		"WeatherText": "Partly sunny",
+		"WeatherIcon": 3,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 21.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 71,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T11:00:00+02:00",
+		"EpochTime": 1687510800,
+		"WeatherText": "Clouds and sun",
+		"WeatherIcon": 4,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 20.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 69,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T10:00:00+02:00",
+		"EpochTime": 1687507200,
+		"WeatherText": "Partly sunny",
+		"WeatherIcon": 3,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 19.3,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 67,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T09:00:00+02:00",
+		"EpochTime": 1687503600,
+		"WeatherText": "Sunny",
+		"WeatherIcon": 1,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.3,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T08:00:00+02:00",
+		"EpochTime": 1687500000,
+		"WeatherText": "Cloudy",
+		"WeatherIcon": 7,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T07:00:00+02:00",
+		"EpochTime": 1687496400,
+		"WeatherText": "Cloudy",
+		"WeatherIcon": 7,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.2,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T06:00:00+02:00",
+		"EpochTime": 1687492800,
+		"WeatherText": "Cloudy",
+		"WeatherIcon": 7,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 17.9,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 64,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T05:00:00+02:00",
+		"EpochTime": 1687489200,
+		"WeatherText": "Cloudy",
+		"WeatherIcon": 7,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.3,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T04:00:00+02:00",
+		"EpochTime": 1687485600,
+		"WeatherText": "Cloudy",
+		"WeatherIcon": 7,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.3,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T03:00:00+02:00",
+		"EpochTime": 1687482000,
+		"WeatherText": "Cloudy",
+		"WeatherIcon": 7,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.3,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T02:02:00+02:00",
+		"EpochTime": 1687478520,
+		"WeatherText": "Light rain",
+		"WeatherIcon": 12,
+		"HasPrecipitation": true,
+		"PrecipitationType": "Rain",
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.2,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-23T00:57:00+02:00",
+		"EpochTime": 1687474620,
+		"WeatherText": "Mostly cloudy",
+		"WeatherIcon": 38,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.5,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-22T23:57:00+02:00",
+		"EpochTime": 1687471020,
+		"WeatherText": "Mostly cloudy",
+		"WeatherIcon": 38,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 17.8,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 64,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-22T22:58:00+02:00",
+		"EpochTime": 1687467480,
+		"WeatherText": "Mostly cloudy",
+		"WeatherIcon": 38,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 18.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 65,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-22T21:58:00+02:00",
+		"EpochTime": 1687463880,
+		"WeatherText": "Mostly clear",
+		"WeatherIcon": 34,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": false,
+		"Temperature": {
+			"Metric": {
+				"Value": 19.4,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 67,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-22T20:58:00+02:00",
+		"EpochTime": 1687460280,
+		"WeatherText": "Partly sunny",
+		"WeatherIcon": 3,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 19.5,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 67,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	},
+	{
+		"LocalObservationDateTime": "2023-06-22T19:58:00+02:00",
+		"EpochTime": 1687456680,
+		"WeatherText": "Cloudy",
+		"WeatherIcon": 7,
+		"HasPrecipitation": false,
+		"PrecipitationType": null,
+		"IsDayTime": true,
+		"Temperature": {
+			"Metric": {
+				"Value": 22.1,
+				"Unit": "C",
+				"UnitType": 17
+			},
+			"Imperial": {
+				"Value": 72,
+				"Unit": "F",
+				"UnitType": 18
+			}
+		},
+		"MobileLink": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us",
+		"Link": "http://www.accuweather.com/en/de/hausen/35415/current-weather/2602716?lang=en-us"
+	}
+]
