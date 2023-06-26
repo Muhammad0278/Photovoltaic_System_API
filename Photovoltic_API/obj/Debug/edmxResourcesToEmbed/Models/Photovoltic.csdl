@@ -22,6 +22,7 @@
     <EntitySet Name="tbl_Projects" EntityType="DB_WeatherModel.tbl_Projects" />
     <EntitySet Name="tbl_Products" EntityType="DB_WeatherModel.tbl_Products" />
     <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
+    <EntitySet Name="tbl_HistoryWeather" EntityType="DB_WeatherModel.tbl_HistoryWeather" />
     <EntitySet Name="tbl_WeatherData" EntityType="DB_WeatherModel.tbl_WeatherData" />
   </EntityContainer>
   <EntityType Name="tbl_Projects">
@@ -91,14 +92,28 @@
     <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="inclination" Type="Double" />
     <Property Name="area" Type="Double" />
-    <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
-    <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
     <Property Name="Quantity" Type="Int32" />
     <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="LatitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="LongitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="isActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tbl_HistoryWeather">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sunrise" Type="DateTime" Precision="3" />
+    <Property Name="Sunset" Type="DateTime" Precision="3" />
+    <Property Name="SolarIrradiance_Value" Type="Double" />
+    <Property Name="SolarIrradiance_Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SolarIrradiance_UnitType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="tbl_WeatherData">
     <Key>
@@ -112,23 +127,15 @@
     <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="UserID" Type="Int32" />
     <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
-    <Property Name="LocalObservationDateTime" Type="DateTime" Precision="3" />
-    <Property Name="EpochTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="WeatherText" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="WeatherIcon" Type="Int32" />
-    <Property Name="HasPrecipitation" Type="Boolean" />
-    <Property Name="PrecipitationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="IsDayTime" Type="Boolean" />
-    <Property Name="TemperatureMetricValue" Type="Double" />
-    <Property Name="TemperatureMetricUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TemperatureMetricUnitType" Type="Int32" />
-    <Property Name="TemperatureImperialValue" Type="Int32" />
-    <Property Name="TemperatureImperialUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TemperatureImperialUnitType" Type="Int32" />
-    <Property Name="MobileLink" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Latitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Longitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Sunrise" Type="DateTime" Precision="3" />
+    <Property Name="Sunset" Type="DateTime" Precision="3" />
+    <Property Name="SolarIrradiance_Value" Type="Double" />
+    <Property Name="SolarIrradiance_Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SolarIrradiance_UnitType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CalElectricity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsReportGenerated" Type="Boolean" />
   </EntityType>
 </Schema>

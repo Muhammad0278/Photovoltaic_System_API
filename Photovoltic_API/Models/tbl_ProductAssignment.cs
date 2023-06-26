@@ -25,8 +25,8 @@ namespace Photovoltic_API.Models
         public string orientation { get; set; }
         public Nullable<double> inclination { get; set; }
         public Nullable<double> area { get; set; }
-        public Nullable<decimal> Latitude { get; set; }
-        public Nullable<decimal> Longitude { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string ImagePath { get; set; }
         public string LatitudeNew { get; set; }

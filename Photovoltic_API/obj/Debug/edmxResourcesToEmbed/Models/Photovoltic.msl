@@ -98,27 +98,34 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_WeatherData">
-      <EntityTypeMapping TypeName="DB_WeatherModel.tbl_WeatherData">
-        <MappingFragment StoreEntitySet="tbl_WeatherData">
+    <EntitySetMapping Name="tbl_HistoryWeather">
+      <EntityTypeMapping TypeName="DB_WeatherModel.tbl_HistoryWeather">
+        <MappingFragment StoreEntitySet="tbl_HistoryWeather">
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="Longitude" ColumnName="Longitude" />
           <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-          <ScalarProperty Name="Link" ColumnName="Link" />
-          <ScalarProperty Name="MobileLink" ColumnName="MobileLink" />
-          <ScalarProperty Name="TemperatureImperialUnitType" ColumnName="TemperatureImperialUnitType" />
-          <ScalarProperty Name="TemperatureImperialUnit" ColumnName="TemperatureImperialUnit" />
-          <ScalarProperty Name="TemperatureImperialValue" ColumnName="TemperatureImperialValue" />
-          <ScalarProperty Name="TemperatureMetricUnitType" ColumnName="TemperatureMetricUnitType" />
-          <ScalarProperty Name="TemperatureMetricUnit" ColumnName="TemperatureMetricUnit" />
-          <ScalarProperty Name="TemperatureMetricValue" ColumnName="TemperatureMetricValue" />
-          <ScalarProperty Name="IsDayTime" ColumnName="IsDayTime" />
-          <ScalarProperty Name="PrecipitationType" ColumnName="PrecipitationType" />
-          <ScalarProperty Name="HasPrecipitation" ColumnName="HasPrecipitation" />
-          <ScalarProperty Name="WeatherIcon" ColumnName="WeatherIcon" />
-          <ScalarProperty Name="WeatherText" ColumnName="WeatherText" />
-          <ScalarProperty Name="EpochTime" ColumnName="EpochTime" />
-          <ScalarProperty Name="LocalObservationDateTime" ColumnName="LocalObservationDateTime" />
+          <ScalarProperty Name="SolarIrradiance_UnitType" ColumnName="SolarIrradiance_UnitType" />
+          <ScalarProperty Name="SolarIrradiance_Unit" ColumnName="SolarIrradiance_Unit" />
+          <ScalarProperty Name="SolarIrradiance_Value" ColumnName="SolarIrradiance_Value" />
+          <ScalarProperty Name="Sunset" ColumnName="Sunset" />
+          <ScalarProperty Name="Sunrise" ColumnName="Sunrise" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_WeatherData">
+      <EntityTypeMapping TypeName="DB_WeatherModel.tbl_WeatherData">
+        <MappingFragment StoreEntitySet="tbl_WeatherData">
+          <ScalarProperty Name="IsReportGenerated" ColumnName="IsReportGenerated" />
+          <ScalarProperty Name="CalElectricity" ColumnName="CalElectricity" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="SolarIrradiance_UnitType" ColumnName="SolarIrradiance_UnitType" />
+          <ScalarProperty Name="SolarIrradiance_Unit" ColumnName="SolarIrradiance_Unit" />
+          <ScalarProperty Name="SolarIrradiance_Value" ColumnName="SolarIrradiance_Value" />
+          <ScalarProperty Name="Sunset" ColumnName="Sunset" />
+          <ScalarProperty Name="Sunrise" ColumnName="Sunrise" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />

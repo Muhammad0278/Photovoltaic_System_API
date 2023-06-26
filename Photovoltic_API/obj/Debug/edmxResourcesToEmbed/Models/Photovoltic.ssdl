@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DB_WeatherModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_HistoryWeather">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sunrise" Type="datetime" />
+    <Property Name="Sunset" Type="datetime" />
+    <Property Name="SolarIrradiance_Value" Type="float" />
+    <Property Name="SolarIrradiance_Unit" Type="varchar" MaxLength="50" />
+    <Property Name="SolarIrradiance_UnitType" Type="varchar" MaxLength="50" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbl_ProductAssignment">
     <Key>
       <PropertyRef Name="ID" />
@@ -15,8 +29,8 @@
     <Property Name="orientation" Type="varchar" MaxLength="255" />
     <Property Name="inclination" Type="float" />
     <Property Name="area" Type="float" />
-    <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
-    <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
     <Property Name="Quantity" Type="int" />
     <Property Name="ImagePath" Type="varchar(max)" />
     <Property Name="LatitudeNew" Type="varchar(max)" />
@@ -88,24 +102,16 @@
     <Property Name="ProductName" Type="varchar" MaxLength="255" />
     <Property Name="UserID" Type="int" />
     <Property Name="UserName" Type="varchar" MaxLength="252" />
-    <Property Name="LocalObservationDateTime" Type="datetime" />
-    <Property Name="EpochTime" Type="nchar" MaxLength="10" />
-    <Property Name="WeatherText" Type="nvarchar" MaxLength="100" />
-    <Property Name="WeatherIcon" Type="int" />
-    <Property Name="HasPrecipitation" Type="bit" />
-    <Property Name="PrecipitationType" Type="nvarchar" MaxLength="50" />
-    <Property Name="IsDayTime" Type="bit" />
-    <Property Name="TemperatureMetricValue" Type="float" />
-    <Property Name="TemperatureMetricUnit" Type="nvarchar" MaxLength="50" />
-    <Property Name="TemperatureMetricUnitType" Type="int" />
-    <Property Name="TemperatureImperialValue" Type="int" />
-    <Property Name="TemperatureImperialUnit" Type="nvarchar" MaxLength="50" />
-    <Property Name="TemperatureImperialUnitType" Type="int" />
-    <Property Name="MobileLink" Type="nvarchar" MaxLength="200" />
-    <Property Name="Link" Type="nvarchar" MaxLength="200" />
-    <Property Name="Latitude" Type="varchar(max)" />
-    <Property Name="Longitude" Type="varchar(max)" />
+    <Property Name="Sunrise" Type="datetime" />
+    <Property Name="Sunset" Type="datetime" />
+    <Property Name="SolarIrradiance_Value" Type="float" />
+    <Property Name="SolarIrradiance_Unit" Type="varchar" MaxLength="50" />
+    <Property Name="SolarIrradiance_UnitType" Type="varchar" MaxLength="50" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
     <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CalElectricity" Type="varchar" MaxLength="250" />
+    <Property Name="IsReportGenerated" Type="bit" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -125,6 +131,7 @@
     <Property Name="ZipCode" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityContainer Name="DB_WeatherModelStoreContainer">
+    <EntitySet Name="tbl_HistoryWeather" EntityType="Self.tbl_HistoryWeather" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ProductAssignment" EntityType="Self.tbl_ProductAssignment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Products" EntityType="Self.tbl_Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Projects" EntityType="Self.tbl_Projects" Schema="dbo" store:Type="Tables" />

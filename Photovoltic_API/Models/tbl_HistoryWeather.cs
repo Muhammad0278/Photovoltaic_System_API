@@ -12,16 +12,9 @@ namespace Photovoltic_API.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_WeatherData
+    public partial class tbl_HistoryWeather
     {
         public int ID { get; set; }
-        public Nullable<int> ProductAssignmentID { get; set; }
-        public Nullable<int> ProjectID { get; set; }
-        public string ProjectName { get; set; }
-        public Nullable<int> ProductID { get; set; }
-        public string ProductName { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public string UserName { get; set; }
         public Nullable<System.DateTime> Sunrise { get; set; }
         public Nullable<System.DateTime> Sunset { get; set; }
         public Nullable<double> SolarIrradiance_Value { get; set; }
@@ -30,7 +23,5 @@ namespace Photovoltic_API.Models
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string CalElectricity { get; set; }
-        public Nullable<bool> IsReportGenerated { get; set; }
     }
 }
