@@ -288,3 +288,6 @@ D:\Project\Photovoltaic_System_API\Photovoltic_API\bin\System.Diagnostics.Diagno
 D:\Project\Photovoltaic_System_API\Photovoltic_API\bin\System.Memory.xml
 D:\Project\Photovoltaic_System_API\Photovoltic_API\bin\System.Numerics.Vectors.xml
 D:\Project\Photovoltaic_System_API\Photovoltic_API\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\Project\Photovoltaic_System_API\Photovoltic_API\bin\BouncyCastle.Crypto.dll
+D:\Project\Photovoltaic_System_API\Photovoltic_API\bin\itextsharp.dll
+D:\Project\Photovoltaic_System_API\Photovoltic_API\bin\itextsharp.xml

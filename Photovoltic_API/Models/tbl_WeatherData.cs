@@ -32,5 +32,6 @@ namespace Photovoltic_API.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CalElectricity { get; set; }
         public Nullable<bool> IsReportGenerated { get; set; }
+        public string ReportPath { get; set; }
     }
 }

@@ -21,9 +21,9 @@
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="tbl_Projects" EntityType="DB_WeatherModel.tbl_Projects" />
     <EntitySet Name="tbl_Products" EntityType="DB_WeatherModel.tbl_Products" />
-    <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
     <EntitySet Name="tbl_HistoryWeather" EntityType="DB_WeatherModel.tbl_HistoryWeather" />
     <EntitySet Name="tbl_WeatherData" EntityType="DB_WeatherModel.tbl_WeatherData" />
+    <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
   </EntityContainer>
   <EntityType Name="tbl_Projects">
     <Key>
@@ -77,30 +77,6 @@
     <Property Name="inclination" Type="Double" />
     <Property Name="area" Type="Double" />
   </EntityType>
-  <EntityType Name="tbl_ProductAssignment">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProjectID" Type="Int32" />
-    <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="ProductID" Type="Int32" />
-    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="UserID" Type="Int32" />
-    <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
-    <Property Name="Powerpeak" Type="Double" />
-    <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="inclination" Type="Double" />
-    <Property Name="area" Type="Double" />
-    <Property Name="Latitude" Type="Double" />
-    <Property Name="Longitude" Type="Double" />
-    <Property Name="Quantity" Type="Int32" />
-    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="LatitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="LongitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-    <Property Name="isActive" Type="Boolean" />
-  </EntityType>
   <EntityType Name="tbl_HistoryWeather">
     <Key>
       <PropertyRef Name="ID" />
@@ -137,5 +113,32 @@
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="CalElectricity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="IsReportGenerated" Type="Boolean" />
+    <Property Name="ReportPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_ProductAssignment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" />
+    <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
+    <Property Name="Powerpeak" Type="Double" />
+    <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="inclination" Type="Double" />
+    <Property Name="area" Type="Double" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LatitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LongitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="IsReportGenerate" Type="Boolean" />
+    <Property Name="ReportPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

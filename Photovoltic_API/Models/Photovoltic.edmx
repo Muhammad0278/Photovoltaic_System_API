@@ -42,6 +42,8 @@
           <Property Name="LongitudeNew" Type="varchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="isActive" Type="bit" />
+          <Property Name="IsReportGenerate" Type="bit" />
+          <Property Name="ReportPath" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tbl_Products">
           <Key>
@@ -117,6 +119,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CalElectricity" Type="varchar" MaxLength="250" />
           <Property Name="IsReportGenerated" Type="bit" />
+          <Property Name="ReportPath" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -168,9 +171,9 @@
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="tbl_Projects" EntityType="DB_WeatherModel.tbl_Projects" />
           <EntitySet Name="tbl_Products" EntityType="DB_WeatherModel.tbl_Products" />
-          <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
           <EntitySet Name="tbl_HistoryWeather" EntityType="DB_WeatherModel.tbl_HistoryWeather" />
           <EntitySet Name="tbl_WeatherData" EntityType="DB_WeatherModel.tbl_WeatherData" />
+          <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
         </EntityContainer>
         <EntityType Name="tbl_Projects">
           <Key>
@@ -224,30 +227,6 @@
           <Property Name="inclination" Type="Double" />
           <Property Name="area" Type="Double" />
         </EntityType>
-        <EntityType Name="tbl_ProductAssignment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectID" Type="Int32" />
-          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ProductID" Type="Int32" />
-          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
-          <Property Name="Powerpeak" Type="Double" />
-          <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="inclination" Type="Double" />
-          <Property Name="area" Type="Double" />
-          <Property Name="Latitude" Type="Double" />
-          <Property Name="Longitude" Type="Double" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LatitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LongitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="isActive" Type="Boolean" />
-        </EntityType>
         <EntityType Name="tbl_HistoryWeather">
           <Key>
             <PropertyRef Name="ID" />
@@ -284,6 +263,33 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CalElectricity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="IsReportGenerated" Type="Boolean" />
+          <Property Name="ReportPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_ProductAssignment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="252" FixedLength="false" Unicode="false" />
+          <Property Name="Powerpeak" Type="Double" />
+          <Property Name="orientation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="inclination" Type="Double" />
+          <Property Name="area" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LatitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LongitudeNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="IsReportGenerate" Type="Boolean" />
+          <Property Name="ReportPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -363,31 +369,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ProductAssignment">
-            <EntityTypeMapping TypeName="DB_WeatherModel.tbl_ProductAssignment">
-              <MappingFragment StoreEntitySet="tbl_ProductAssignment">
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LongitudeNew" ColumnName="LongitudeNew" />
-                <ScalarProperty Name="LatitudeNew" ColumnName="LatitudeNew" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="area" ColumnName="area" />
-                <ScalarProperty Name="inclination" ColumnName="inclination" />
-                <ScalarProperty Name="orientation" ColumnName="orientation" />
-                <ScalarProperty Name="Powerpeak" ColumnName="Powerpeak" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_HistoryWeather">
             <EntityTypeMapping TypeName="DB_WeatherModel.tbl_HistoryWeather">
               <MappingFragment StoreEntitySet="tbl_HistoryWeather">
@@ -406,6 +387,7 @@
           <EntitySetMapping Name="tbl_WeatherData">
             <EntityTypeMapping TypeName="DB_WeatherModel.tbl_WeatherData">
               <MappingFragment StoreEntitySet="tbl_WeatherData">
+                <ScalarProperty Name="ReportPath" ColumnName="ReportPath" />
                 <ScalarProperty Name="IsReportGenerated" ColumnName="IsReportGenerated" />
                 <ScalarProperty Name="CalElectricity" ColumnName="CalElectricity" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -423,6 +405,33 @@
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ProductAssignmentID" ColumnName="ProductAssignmentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ProductAssignment">
+            <EntityTypeMapping TypeName="DB_WeatherModel.tbl_ProductAssignment">
+              <MappingFragment StoreEntitySet="tbl_ProductAssignment">
+                <ScalarProperty Name="ReportPath" ColumnName="ReportPath" />
+                <ScalarProperty Name="IsReportGenerate" ColumnName="IsReportGenerate" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LongitudeNew" ColumnName="LongitudeNew" />
+                <ScalarProperty Name="LatitudeNew" ColumnName="LatitudeNew" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="inclination" ColumnName="inclination" />
+                <ScalarProperty Name="orientation" ColumnName="orientation" />
+                <ScalarProperty Name="Powerpeak" ColumnName="Powerpeak" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

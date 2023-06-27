@@ -73,31 +73,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_ProductAssignment">
-      <EntityTypeMapping TypeName="DB_WeatherModel.tbl_ProductAssignment">
-        <MappingFragment StoreEntitySet="tbl_ProductAssignment">
-          <ScalarProperty Name="isActive" ColumnName="isActive" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="LongitudeNew" ColumnName="LongitudeNew" />
-          <ScalarProperty Name="LatitudeNew" ColumnName="LatitudeNew" />
-          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-          <ScalarProperty Name="area" ColumnName="area" />
-          <ScalarProperty Name="inclination" ColumnName="inclination" />
-          <ScalarProperty Name="orientation" ColumnName="orientation" />
-          <ScalarProperty Name="Powerpeak" ColumnName="Powerpeak" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_HistoryWeather">
       <EntityTypeMapping TypeName="DB_WeatherModel.tbl_HistoryWeather">
         <MappingFragment StoreEntitySet="tbl_HistoryWeather">
@@ -116,6 +91,7 @@
     <EntitySetMapping Name="tbl_WeatherData">
       <EntityTypeMapping TypeName="DB_WeatherModel.tbl_WeatherData">
         <MappingFragment StoreEntitySet="tbl_WeatherData">
+          <ScalarProperty Name="ReportPath" ColumnName="ReportPath" />
           <ScalarProperty Name="IsReportGenerated" ColumnName="IsReportGenerated" />
           <ScalarProperty Name="CalElectricity" ColumnName="CalElectricity" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -133,6 +109,33 @@
           <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="ProductAssignmentID" ColumnName="ProductAssignmentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ProductAssignment">
+      <EntityTypeMapping TypeName="DB_WeatherModel.tbl_ProductAssignment">
+        <MappingFragment StoreEntitySet="tbl_ProductAssignment">
+          <ScalarProperty Name="ReportPath" ColumnName="ReportPath" />
+          <ScalarProperty Name="IsReportGenerate" ColumnName="IsReportGenerate" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LongitudeNew" ColumnName="LongitudeNew" />
+          <ScalarProperty Name="LatitudeNew" ColumnName="LatitudeNew" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="inclination" ColumnName="inclination" />
+          <ScalarProperty Name="orientation" ColumnName="orientation" />
+          <ScalarProperty Name="Powerpeak" ColumnName="Powerpeak" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

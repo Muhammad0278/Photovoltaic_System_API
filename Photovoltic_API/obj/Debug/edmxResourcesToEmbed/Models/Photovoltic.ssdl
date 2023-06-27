@@ -37,6 +37,8 @@
     <Property Name="LongitudeNew" Type="varchar(max)" />
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="isActive" Type="bit" />
+    <Property Name="IsReportGenerate" Type="bit" />
+    <Property Name="ReportPath" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="tbl_Products">
     <Key>
@@ -112,6 +114,7 @@
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="CalElectricity" Type="varchar" MaxLength="250" />
     <Property Name="IsReportGenerated" Type="bit" />
+    <Property Name="ReportPath" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
