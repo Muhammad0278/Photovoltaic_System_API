@@ -25,11 +25,11 @@ namespace Photovoltic_API.Controllers
 
             if (log == null)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "Invalid data", });
+                return NotFound();
             }
             else
 
-                return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", data = log });
+                return Ok(new { status = 200, isSuccess = true, message = "successfully", data = log });
         }
        
         [Route("InsertProject")]
@@ -55,17 +55,15 @@ namespace Photovoltic_API.Controllers
                     Pt.IsActive = true;
                     DB.tbl_Projects.Add(Pt);
                     DB.SaveChanges();
-                    return new Response
-                    { Status = "Success", Message = "Data SuccessFully Saved." };
+                   
                 }
             }
             catch (Exception)
             {
 
-                throw;
+                return new Response { Code = 404, Status = "Fail", Message = "Bad Request." };
             }
-            return new Response
-            { Status = "Error", Message = "Invalid Data." };
+            return new Response  { Code = 200, Status = "Success", Message = "Data SuccessFully Saved." };
         }
         [Route("GetbyProject")]
         [HttpGet]
@@ -175,7 +173,7 @@ namespace Photovoltic_API.Controllers
                 {
                     resp.Code = 200;
                     resp.Status = "success";
-                    resp.Message = "Project Deleted successfully..";
+                    resp.Message = "Project Update successfully..";
 
                 }
 

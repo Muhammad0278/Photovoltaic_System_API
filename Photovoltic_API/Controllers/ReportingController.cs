@@ -31,10 +31,10 @@ namespace Photovoltic_API.Controllers
         Helper_Reporting HP = new Helper_Reporting();
         [Route("GenerateReport")]
         [HttpGet]
-        public Response GetReport(int ProjectID, int ProductID, double lat, double lon)
+        public Response GetReport(tbl_ProductAssignment tlbAss)
         {
             var res = new Response();
-            var Path= GenerateReport(ProjectID, ProductID, lat, lon);
+            var Path= GenerateReport(tlbAss);
             if (Path != "")
             {
                 res.Code = 200;
@@ -49,7 +49,7 @@ namespace Photovoltic_API.Controllers
            
             return res;
         }
-        public string GenerateReport(int ProjectID,int ProductID,double lat,double lon)
+        public string GenerateReport(tbl_ProductAssignment objtable)
         {
             var json = "";
             var res = new Response();
@@ -60,11 +60,11 @@ namespace Photovoltic_API.Controllers
                 var query = (from ass in DB.tbl_ProductAssignment
                              join proj in DB.tbl_Projects on ass.ProjectID equals proj.ProjectID
                              join prod in DB.tbl_Products on ass.ProductID equals prod.ProductID
-                             where proj.IsActive == true
+                             where proj.IsActive == true && ass.ID== Convert.ToInt32(objtable.ID)
                              select new  {  ass,   proj,  prod    }).FirstOrDefault();
 
                 var newguid = Guid.NewGuid();
-                var tblWeather = DB.tbl_WeatherData.Where(x => x.ProjectID== ProjectID && x.ProductID==ProductID && x.Latitude == lat && x.Longitude == lon).ToList();
+                var tblWeather = DB.tbl_WeatherData.Where(x => x.ProductAssignmentID== objtable.ID && x.ProjectID== objtable.ProjectID && x.ProductID== objtable.ProductID).ToList();
                 #region  Directory Information
                 string folder = HttpContext.Current.Server.MapPath("~/TempReport");
                 string Chartfolder = HttpContext.Current.Server.MapPath("~/TempPdf");
@@ -75,20 +75,20 @@ namespace Photovoltic_API.Controllers
                 if (!dir.Exists)
                     dir.Create();
 
-                //var exfiles = dir.GetFiles();
-                //foreach (var item in exfiles)
-                //{
-                //    try
-                //    {
-                //        item.Delete();
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        // this means the file is in use...no biggie...we will get it next time.
-                //        continue;
-                //    }
+                var exfiles = dir.GetFiles();
+                foreach (var item in exfiles)
+                {
+                    try
+                    {
+                        item.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        // this means the file is in use...no biggie...we will get it next time.
+                        continue;
+                    }
 
-                //}
+                }
 
                 if (!Chartdir.Exists)
                     Chartdir.Create();
@@ -149,7 +149,7 @@ namespace Photovoltic_API.Controllers
                     MainHeader.AddCell(HP.CreateCellPadding(SubHeader, 0f, 0f, 0f, 0f, 0f));
                     MainFianlBody.AddCell(HP.CreateCellPadding(MainHeader, 0f, 0f, 0f, 1f, 0f));
 
-                    var tblbody = HP.CreateTable(new float[] { 1f }, Rectangle.NO_BORDER, 90f, 5f, 10f);
+                    var tblbody = HP.CreateTable(new float[] { 1f }, Rectangle.NO_BORDER, 85f, 5f, 10f);
 
                     //MainFianlBody.AddCell(CreatePaddingCellBorderMedication("Principle Diagnostics LLC 2550 Brodhead Rd, Suite 105 Bethlehem, PA 18020", HeaderTitle, 0, Element.ALIGN_LEFT, 2f, 1f, 0f, 0f, 0f, 0f, 2f, 0f, new BaseColor(224, 224, 224), 0));
                     //  tblbody.AddCell(HP.CreatePaddingCellBorder(dtStart.ToShortDateString() + " - " + dtEnd.ToShortDateString(), Patientinform, 0, Element.ALIGN_LEFT, 0f, 5f, 0f, 0f, 0f, 0f, 2f, 0f, new BaseColor(225, 225, 225), 0));
@@ -248,16 +248,6 @@ namespace Photovoltic_API.Controllers
                 chart1.Width = new System.Web.UI.WebControls.Unit(1100, System.Web.UI.WebControls.UnitType.Pixel);
                 chart1.Height = new System.Web.UI.WebControls.Unit(400, System.Web.UI.WebControls.UnitType.Pixel);
 
-    //            // Generate sample data for the chart
-    //            var chartData = new[]
-    //            {
-    //    new { Date = "2023-06-24", Value = 10 },
-    //    new { Date = "2023-06-25", Value = 5 },
-    //    new { Date = "2023-06-26", Value = 8 },
-    //    // Add more data points as needed
-    //};
-
-                // Clear any existing series and chart areas
                 chart1.Series.Clear();
                 chart1.ChartAreas.Clear();
 

@@ -8,6 +8,8 @@ using System.Web.Http;
 using photovoltaic_API.Controllers;
 using Photovoltic_API.Models;
 using System.Security.Cryptography;
+using System.Web.Script.Serialization;
+using System.Web.Http.Description;
 
 namespace Photovoltic_API.Controllers
 {
@@ -15,10 +17,12 @@ namespace Photovoltic_API.Controllers
     // GET: UserLogin
 
     [System.Web.Http.RoutePrefix("api/User")]
+
     public class UserLoginController : ApiController
     {
        DB_WeatherEntities DB = new DB_WeatherEntities();
         [Route("Login")]
+       
         [HttpPost]
         public IHttpActionResult userLogin(Login login)
         {
@@ -53,17 +57,86 @@ namespace Photovoltic_API.Controllers
 
                     DB.Users.Add(EL);
                     DB.SaveChanges();
-                    return new Response
-                    { Status = "Success", Message = "Record SuccessFully Saved." };
+                 
                 }
             }
             catch (Exception)
             {
 
-                throw;
+                return new Response { Code = 401, Status = "Error", Message = "Invalid Data." };
             }
-            return new Response
-            { Status = "Error", Message = "Invalid Data." };
+            return new Response { Code = 200, Status = "Success", Message = "Record SuccessFully Saved." };
+        }
+        [Route("DeleteUser")]
+        [HttpDelete]
+        public object DeleteUser(int ID)
+        {
+            var json = "";
+            var resp = new Response();
+            JavaScriptSerializer _jss = new JavaScriptSerializer();
+            try
+            {
+                var tbl_user = DB.Users.Where(x => x.Id == ID).FirstOrDefault();
+
+                if (tbl_user == null)
+                {
+                    resp.Code = 401;
+                    resp.Status = "Not Found";
+                    resp.Message = "Record Not Found..";
+                }
+                else
+                {
+                    DB.Users.Remove(tbl_user);
+                    DB.SaveChanges();
+
+                    resp.Code = 200;
+                    resp.Status = "success";
+                    resp.Message = "User Deleted successfully..";
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                resp.Code = 404;
+                resp.Status = "Bad Resquest";
+                resp.Message = ex.Message;
+            }
+            json = _jss.Serialize(resp);
+            return json;
+        }
+
+        [Route("UpdateUser")]
+        [HttpPut]
+        public object UpdateUser(int id, User userDto)
+        {
+            var json = "";
+            var resp = new Response();
+            JavaScriptSerializer _jss = new JavaScriptSerializer();
+
+            var user = DB.Users.FirstOrDefault(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.UserName = userDto.UserName;
+            user.Email = userDto.Email;
+            user.Address = userDto.Address;
+            user.City = userDto.City;
+            user.State = userDto.State;
+            user.ZipCode = userDto.ZipCode;
+
+            // Save changes to the database
+            DB.SaveChanges();
+
+            resp.Code = 200;
+            resp.Status = "success";
+            resp.Message = "User Update successfully..";
+
+            json = _jss.Serialize(resp);
+            return json;
         }
     }
 

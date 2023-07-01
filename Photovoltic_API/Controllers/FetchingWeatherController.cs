@@ -168,37 +168,7 @@ namespace Photovoltic_API.Controllers
             {
                 return Ok(new { status = 401, isSuccess = false, message = ex.Message, data = "" });
             }
-            //var log = DB.tbl_ProductAssignment.FirstOrDefault();
-
-            //if (log != null)
-            //{
-            //    int powerPeak = Convert.ToInt32(log.Powerpeak); 
-            //    string orientation = log.orientation;
-            //    double inclination = Convert.ToDouble(log.inclination);
-            //    double area = Convert.ToDouble(log.area); 
-            //    double longitude = Convert.ToDouble(log.LongitudeNew); 
-            //    double latitude = Convert.ToDouble(log.LatitudeNew);
-
-            //    double solarIrradiance = Convert.ToDouble(data.SolarIrradiance_Value);
-            //    double solarIrradianceKW = solarIrradiance / 1000;
-            //    double tiltAngleFactor = Math.Cos(Math.PI * inclination / 180);
-            //    double effectiveSolarIrradiance = solarIrradianceKW * tiltAngleFactor;
-            //    double totalIncidentPower = effectiveSolarIrradiance * area;
-            //    double electricityProduction = totalIncidentPower * powerPeak;
-
-            //    // Print the electricity production
-            //    Console.WriteLine("Electricity Production: " + electricityProduction + " kWh");
-
-            //    //double power = powerPeak * (Convert.ToDouble(data.SolarIrradiance_Value) / 1000.0) * (area / 100.0);
-            //    //double azimuthAngle = GetAzimuth(longitude, latitude); //CalculateAzimuthAngle(item.LocalObservationDateTime, longitude, latitude);
-            //    //double angleFactor = CalculateAngleFactor(inclination, azimuthAngle, orientation);
-            //    //power *= angleFactor;
-            //    //double electricityProduction1 = power * GetDaylightDuration(Convert.ToDateTime(data.Sunrise), Convert.ToDateTime(data.Sunset));
-            //    //Console.WriteLine("Electricity Production: " + electricityProduction + " kWh");
-
-            //}
-
-
+             
             return Ok(new { status = 200, isSuccess = true, message = "data save", data = lsthistory });
             // return Ok();
         }
@@ -231,19 +201,19 @@ namespace Photovoltic_API.Controllers
                 DateTime latetDate = Convert.ToDateTime(_item.ass.CreatedDate).AddMonths(1).Date;
                 if (latetDate == dtNow)
                 {
-                    double targetLatitude = Convert.ToDouble(_item.ass.Latitude);   
-                    double targetLongitude = Convert.ToDouble(_item.ass.Longitude);
+                   
                     // Electricity Calculation
-                    Response calReponse =  CalculateElectricity(Convert.ToInt32(_item.ass.UserID), _item.ass.UserName, _item.proj.ProjectID, _item.prod.ProductID, targetLatitude, targetLongitude, _item.prod);
+                    Response calReponse =  CalculateElectricity(_item.ass, _item.prod);
                     if (calReponse.Code == 200)
                     {
-                       //Generate Report
+                        double targetLatitude = Convert.ToDouble(_item.ass.Latitude);
+                        double targetLongitude = Convert.ToDouble(_item.ass.Longitude);
+                        //Generate Report
                         ReportingController ld = new ReportingController();
-                        Response report = ld.GetReport(Convert.ToInt32(_item.ass.ProjectID), Convert.ToInt32(_item.ass.ProductID), targetLatitude, targetLongitude);
+                        Response report = ld.GetReport(_item.ass);
                         if(report.Code ==200 && report.Detail != "")
                         {
-                          
-                             _item.ass.isActive = false;
+                            _item.ass.isActive = false;
                             _item.ass.IsReportGenerate = true;
                             _item.ass.ReportPath = report.Detail;
                             _item.proj.IsActive = false;
@@ -258,24 +228,22 @@ namespace Photovoltic_API.Controllers
            
             return Ok();
         }
-        public Response CalculateElectricity(int UserID,string UserName,int ProjectID, int ProductID, double lat, double lon, tbl_Products Prod)
+        public Response CalculateElectricity(tbl_ProductAssignment PASS, tbl_Products Prod)
         {
             var json = "";
             var resp = new Response();
             JavaScriptSerializer _jss = new JavaScriptSerializer();
             try
             {
-                //var tblWeather = DB.tbl_HistoryWeather.Where(x => x.Latitude == lat && x.Longitude == lon).ToList();
-                //foreach (var _item in tblWeather)
-                //{
-
+                
                 if (Prod != null)
                 {
                     int powerPeak = Convert.ToInt32(Prod.Powerpeak);
                     string orientation = Prod.orientation;
                     double inclination = Convert.ToDouble(Prod.inclination);
                     double area = Convert.ToDouble(Prod.area);
-                   
+                    double lat = Convert.ToDouble(PASS.Latitude);
+                    double lon = Convert.ToDouble(PASS.Longitude);
                     var tblWeather = DB.tbl_HistoryWeather.Where(x => x.Latitude == lat && x.Longitude == lon).ToList();
                     foreach (var _item in tblWeather)
                     { 
@@ -286,12 +254,12 @@ namespace Photovoltic_API.Controllers
                         double electricityProduction1 = power * GetDaylightDuration(Convert.ToDateTime(_item.Sunrise), Convert.ToDateTime(_item.Sunset));
 
                         tbl_WeatherData wd = new tbl_WeatherData();
-                        wd.ProjectID = Prod.ProjectID;
-                        wd.ProjectName = Prod.ProjectName;
-                        wd.ProductID = Prod.ProductID;
-                        wd.ProductName = Prod.ProductName;
-                        wd.Latitude = lat;
-                        wd.Longitude = lon;
+                        wd.ProjectID = PASS.ProjectID;
+                        wd.ProjectName = PASS.ProjectName;
+                        wd.ProductID = PASS.ProductID;
+                        wd.ProductName = PASS.ProductName;
+                        wd.Latitude = PASS.Latitude;
+                        wd.Longitude = PASS.Longitude;
                         wd.Sunrise = Convert.ToDateTime(_item.Sunrise);
                         wd.Sunset = Convert.ToDateTime(_item.Sunset);
                         wd.SolarIrradiance_Value = Convert.ToDouble(_item.SolarIrradiance_Value);
@@ -299,8 +267,9 @@ namespace Photovoltic_API.Controllers
                         wd.SolarIrradiance_UnitType = _item.SolarIrradiance_UnitType;
                         wd.CalElectricity = Convert.ToString(Math.Round(electricityProduction1, 0));
                         wd.CreatedDate = _item.CreatedDate;
-                        wd.UserID = UserID;
-                        wd.UserName = UserName;
+                        wd.UserID = PASS.UserID;
+                        wd.UserName = PASS.UserName;
+                        wd.ProductAssignmentID = PASS.ID;
                         DB.tbl_WeatherData.Add(wd);
                         DB.SaveChanges();
                         resp.Code = 200;
@@ -335,8 +304,7 @@ namespace Photovoltic_API.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     json = await response.Content.ReadAsStringAsync();
-                    //  var  accuWeatherData = ser.Deserialize<DailyWeatherdata.Root>(body);
-                    // jsonData = JsonConvert.DeserializeObject<dynamic>(body);
+                
                 }
 
             }
@@ -369,14 +337,11 @@ namespace Photovoltic_API.Controllers
                             return Convert.ToInt32(locationData[0].Key);
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine($"Request failed with status code: {response.StatusCode}");
-                    }
+                   
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                   // return ex.Message;
                 }
             }
 

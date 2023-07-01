@@ -41,7 +41,7 @@ namespace Photovoltic_API.Controllers
             JavaScriptSerializer _jss = new JavaScriptSerializer();
             try
             {
-                var log = DB.tbl_Projects.Where(x => x.UserID == UserID).Select(x => new { x.ProjectID, x.ProjectName }).ToList();
+                var log = DB.tbl_Projects.Where(x => x.UserID == UserID).Select(x => new { x.ProjectID, x.ProjectName,x.IsActive }).ToList();
 
                 if (log != null)
                 {
