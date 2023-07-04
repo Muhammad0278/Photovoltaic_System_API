@@ -19,6 +19,7 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.Xml;
 using System.Runtime.ConstrainedExecution;
 using System.Data.Entity.Core.Objects;
+using System.Net.Mail;
 
 namespace Photovoltic_API.Controllers
 {
@@ -217,8 +218,14 @@ namespace Photovoltic_API.Controllers
                             _item.ass.IsReportGenerate = true;
                             _item.ass.ReportPath = report.Detail;
                             _item.proj.IsActive = false;
-                                DB.SaveChanges();
-                           
+                            DB.SaveChanges();
+                            var tblUser = DB.Users.Where(x => x.Id == _item.ass.UserID ).FirstOrDefault();
+                            if (tblUser != null)
+                            {
+                                SendEmail.Send_Email(tblUser.Email,"Calculated Report","Dear this the report", report.Detail);
+                            }
+
+
                         }
                     }
 

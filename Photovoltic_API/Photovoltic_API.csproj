@@ -232,6 +232,7 @@
     <Compile Include="Controllers\Register.cs" />
     <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\Response.cs" />
+    <Compile Include="Controllers\SendEmail.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

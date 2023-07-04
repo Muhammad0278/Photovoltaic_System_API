@@ -110,8 +110,8 @@ namespace Photovoltic_API.Controllers
                              join pj in DB.tbl_Projects on a.ProjectID equals pj.ProjectID
                              join pt in DB.tbl_Products on a.ProductID equals pt.ProductID
 
-                             where a.UserID == UserID && a.ProjectID == ProjectID &&
-                            pj.IsActive == Status
+                             where a.UserID == UserID && a.ProjectID == ProjectID 
+                          
                              select new
                              {
                                  a.ID,    a.ProjectName,  a.ProjectID,

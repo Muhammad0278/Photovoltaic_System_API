@@ -41,7 +41,7 @@ namespace Photovoltic_API.Controllers
             JavaScriptSerializer _jss = new JavaScriptSerializer();
             try
             {
-                var log = DB.tbl_Projects.Where(x => x.UserID == UserID).Select(x => new { x.ProjectID, x.ProjectName,x.IsActive }).ToList();
+                var log = DB.tbl_Projects.Where(x => x.UserID == UserID && x.IsActive== true).Select(x => new { x.ProjectID, x.ProjectName,x.IsActive }).ToList();
 
                 if (log != null)
                 {
@@ -65,6 +65,42 @@ namespace Photovoltic_API.Controllers
             json = _jss.Serialize(resp);
             //return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", data = json });
              return json;
+        }
+
+        [Route("GetAllADProject")]
+        [HttpGet]
+        public object GetAllADProject(int UserID)
+        {
+
+            var json = "";
+            var resp = new Response();
+            JavaScriptSerializer _jss = new JavaScriptSerializer();
+            try
+            {
+                var log = DB.tbl_Projects.Where(x => x.UserID == UserID ).Select(x => new { x.ProjectID, x.ProjectName, x.IsActive }).ToList();
+
+                if (log != null)
+                {
+                    //  return Ok(new { status = 401, isSuccess = false, message = "Invalid data", });
+                    resp.Code = 200;
+                    resp.Status = "success";
+                    resp.Message = "Project successfully..";
+                    resp.data = log;
+                }
+                else
+                {
+                    resp.Code = 401;
+                    resp.Status = "Not Found";
+                    resp.Message = "Record Not Found..";
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            json = _jss.Serialize(resp);
+            //return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", data = json });
+            return json;
         }
         [Route("InsertProducts")]
         [HttpPost]

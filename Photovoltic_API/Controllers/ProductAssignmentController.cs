@@ -63,7 +63,7 @@ namespace Photovoltic_API.Controllers
                     DB.SaveChanges();
                     resp.Code = 200;
                     resp.Status = "success";
-                    resp.Message = "Product Infor insert successfully..";
+                    resp.Message = "Data SuccessFully Saved.";
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace Photovoltic_API.Controllers
 
                         resp.Code = 200;
                         resp.Status = "success";
-                        resp.Message = "Product Info Updated successfully..";
+                        resp.Message = "Data Updated successfully..";
                     }
                 }
             }
