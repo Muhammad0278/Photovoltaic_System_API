@@ -20,6 +20,7 @@ using System.Security.Cryptography.Xml;
 using System.Runtime.ConstrainedExecution;
 using System.Data.Entity.Core.Objects;
 using System.Net.Mail;
+using System.Globalization;
 
 namespace Photovoltic_API.Controllers
 {
@@ -27,6 +28,83 @@ namespace Photovoltic_API.Controllers
     public class FetchingWeatherController : ApiController
     {
         DB_WeatherEntities DB = new DB_WeatherEntities();
+
+        [Route("GenerateManualReport")]
+        [HttpGet]
+        public async Task<IHttpActionResult> ReportGeneration(int UserID, int ProjectID)
+        {
+            //  await GetWeatherData();
+            var json = "";
+            var resp = new Response();
+            JavaScriptSerializer _jss = new JavaScriptSerializer();
+            try
+            {
+                var query = (from ass in DB.tbl_ProductAssignment
+                             join proj in DB.tbl_Projects on ass.ProjectID equals proj.ProjectID
+                             join prod in DB.tbl_Products on ass.ProductID equals prod.ProductID
+                             where proj.IsActive == true && ass.ProjectID == ProjectID && ass.UserID == UserID
+                             select new
+                             {
+                                 ass,
+                                 proj,
+                                 prod
+
+                             }).ToList();
+                foreach (var _item in query)
+                {
+                    Response calReponse = CalculateElectricity(_item.ass, _item.prod);
+                    if (calReponse.Code == 200)
+                    {
+
+
+                    }
+                }
+                if (query.Count > 0)
+                {
+                    //Generate Report
+                    ReportingController ld = new ReportingController();
+                    Response report = ld.GetManualReport(UserID, ProjectID);
+                    if (report.Code == 200 && report.Detail != "")
+                    {
+                        var tblProject = DB.tbl_Projects.Where(x => x.ProjectID == ProjectID).FirstOrDefault();
+                        if(tblProject != null)
+                        tblProject.IsActive = false;
+                        DB.SaveChanges();
+                        var tblUser = DB.Users.Where(x => x.Id == UserID).FirstOrDefault();
+                        if (tblUser != null)
+                        {
+                            SendEmail.Send_Email(tblUser.Email, "Report Status", "Dear "+ tblUser.UserName+ "<br> please check you detail about energy generation in attachment.", report.Detail);
+                        }
+
+
+                    }
+                    resp.Code = 200;
+                    resp.Status = "success";
+                    resp.Message = "Details successfully..";
+                    resp.data = query;
+
+                }
+                else
+                {
+                    resp.Code = 401;
+                    resp.Status = "Not Found";
+                    resp.Message = "Record Not Found..";
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                resp.Code = 404;
+                resp.Status = "Bad Resquest";
+                resp.Message = ex.Message;
+            }
+            return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", data = json });
+            // json = _jss.Serialize(resp);
+            // return json;
+        }
+
         [Route("GetMapProductsByProID")]
         [HttpGet]
         public object GetPrByProjectID(int UserID, int ProjectID, bool Status)
@@ -124,8 +202,11 @@ namespace Photovoltic_API.Controllers
 
                 foreach (var _item in query)
                 {
-                    double targetLatitude = Convert.ToDouble(_item.Latitude);   // The target latitude value
-                    double targetLongitude = Convert.ToDouble(_item.Longitude); // The target longitude value
+                    CultureInfo culture = CultureInfo.InvariantCulture;
+
+
+                    double targetLatitude = Convert.ToDouble(_item.Latitude, culture);   // The target latitude value
+                    double targetLongitude = Convert.ToDouble(_item.Longitude, culture); // The target longitude value
                     DateTime dt = DateTime.Now.Date;
                     var tblProjects = DB.tbl_HistoryWeather.Where(x => x.Latitude == targetLatitude && x.Longitude == targetLongitude && EntityFunctions.TruncateTime(x.CreatedDate) == dt).FirstOrDefault();
 
@@ -148,8 +229,8 @@ namespace Photovoltic_API.Controllers
                             SolarIrradiance_Value = (accuWeatherData != null && accuWeatherData.DailyForecasts != null && accuWeatherData.DailyForecasts[0].Day != null && accuWeatherData.DailyForecasts[0].Day.SolarIrradiance != null) ? accuWeatherData.DailyForecasts[0].Day.SolarIrradiance.Value : 0.0,
                             SolarIrradiance_Unit = (accuWeatherData != null && accuWeatherData.DailyForecasts != null && accuWeatherData.DailyForecasts[0].Day != null && accuWeatherData.DailyForecasts[0].Day.SolarIrradiance != null) ? accuWeatherData.DailyForecasts[0].Day.SolarIrradiance.Unit : "",
                             SolarIrradiance_UnitType = (accuWeatherData != null && accuWeatherData.DailyForecasts != null && accuWeatherData.DailyForecasts[0].Day != null && accuWeatherData.DailyForecasts[0].Day.SolarIrradiance != null) ? accuWeatherData.DailyForecasts[0].Day.SolarIrradiance.UnitType : string.Empty,
-                            Latitude = Convert.ToDouble(_item.Latitude),
-                            Longitude = Convert.ToDouble(_item.Longitude),
+                            Latitude = targetLatitude,
+                            Longitude = targetLongitude,
                             CreatedDate = DateTime.Now
                         };
                         if (data != null)
@@ -169,7 +250,7 @@ namespace Photovoltic_API.Controllers
             {
                 return Ok(new { status = 401, isSuccess = false, message = ex.Message, data = "" });
             }
-             
+
             return Ok(new { status = 200, isSuccess = true, message = "data save", data = lsthistory });
             // return Ok();
         }
@@ -181,7 +262,7 @@ namespace Photovoltic_API.Controllers
             DateTime dtNow = DateTime.Now.Date;
 
             // Call Daily data and save response
-           // GetWeatherData();
+            // GetWeatherData();
             JavaScriptSerializer ser = new JavaScriptSerializer();
 
             string apiKey = "apah899bLstduZGLWkICXLq8U2SbPkeq";
@@ -202,9 +283,9 @@ namespace Photovoltic_API.Controllers
                 DateTime latetDate = Convert.ToDateTime(_item.ass.CreatedDate).AddMonths(1).Date;
                 if (latetDate == dtNow)
                 {
-                   
+
                     // Electricity Calculation
-                    Response calReponse =  CalculateElectricity(_item.ass, _item.prod);
+                    Response calReponse = CalculateElectricity(_item.ass, _item.prod);
                     if (calReponse.Code == 200)
                     {
                         double targetLatitude = Convert.ToDouble(_item.ass.Latitude);
@@ -212,17 +293,17 @@ namespace Photovoltic_API.Controllers
                         //Generate Report
                         ReportingController ld = new ReportingController();
                         Response report = ld.GetReport(_item.ass);
-                        if(report.Code ==200 && report.Detail != "")
+                        if (report.Code == 200 && report.Detail != "")
                         {
                             _item.ass.isActive = false;
                             _item.ass.IsReportGenerate = true;
                             _item.ass.ReportPath = report.Detail;
                             _item.proj.IsActive = false;
                             DB.SaveChanges();
-                            var tblUser = DB.Users.Where(x => x.Id == _item.ass.UserID ).FirstOrDefault();
+                            var tblUser = DB.Users.Where(x => x.Id == _item.ass.UserID).FirstOrDefault();
                             if (tblUser != null)
                             {
-                                SendEmail.Send_Email(tblUser.Email,"Calculated Report","Dear this the report", report.Detail);
+                                SendEmail.Send_Email(tblUser.Email, "Calculated Report", "Dear this the report", report.Detail);
                             }
 
 
@@ -230,9 +311,9 @@ namespace Photovoltic_API.Controllers
                     }
 
                 }
-                
+
             }
-           
+
             return Ok();
         }
         public Response CalculateElectricity(tbl_ProductAssignment PASS, tbl_Products Prod)
@@ -242,18 +323,20 @@ namespace Photovoltic_API.Controllers
             JavaScriptSerializer _jss = new JavaScriptSerializer();
             try
             {
-                
+
                 if (Prod != null)
                 {
+                    CultureInfo culture = CultureInfo.InvariantCulture;
+
                     int powerPeak = Convert.ToInt32(Prod.Powerpeak);
                     string orientation = Prod.orientation;
                     double inclination = Convert.ToDouble(Prod.inclination);
                     double area = Convert.ToDouble(Prod.area);
-                    double lat = Convert.ToDouble(PASS.Latitude);
-                    double lon = Convert.ToDouble(PASS.Longitude);
+                    double lat = Convert.ToDouble(PASS.LatitudeNew, culture);
+                    double lon = Convert.ToDouble(PASS.LongitudeNew, culture);
                     var tblWeather = DB.tbl_HistoryWeather.Where(x => x.Latitude == lat && x.Longitude == lon).ToList();
                     foreach (var _item in tblWeather)
-                    { 
+                    {
                         double power = powerPeak * (Convert.ToDouble(_item.SolarIrradiance_Value) / 1000.0) * (area / 100.0);
                         double Angleazimuth = GetCalculateAzimuth(lon, lat);
                         double angleFactor = CalculateAngleFactor(inclination, Angleazimuth, orientation);
@@ -265,8 +348,8 @@ namespace Photovoltic_API.Controllers
                         wd.ProjectName = PASS.ProjectName;
                         wd.ProductID = PASS.ProductID;
                         wd.ProductName = PASS.ProductName;
-                        wd.Latitude = PASS.Latitude;
-                        wd.Longitude = PASS.Longitude;
+                        wd.Latitude = Convert.ToDouble(PASS.LatitudeNew, culture);
+                        wd.Longitude = Convert.ToDouble(PASS.LongitudeNew, culture);
                         wd.Sunrise = Convert.ToDateTime(_item.Sunrise);
                         wd.Sunset = Convert.ToDateTime(_item.Sunset);
                         wd.SolarIrradiance_Value = Convert.ToDouble(_item.SolarIrradiance_Value);
@@ -311,7 +394,7 @@ namespace Photovoltic_API.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     json = await response.Content.ReadAsStringAsync();
-                
+
                 }
 
             }
@@ -344,11 +427,11 @@ namespace Photovoltic_API.Controllers
                             return Convert.ToInt32(locationData[0].Key);
                         }
                     }
-                   
+
                 }
                 catch (Exception ex)
                 {
-                   // return ex.Message;
+                    // return ex.Message;
                 }
             }
 
@@ -361,7 +444,7 @@ namespace Photovoltic_API.Controllers
         }
         public double GetCalculateAzimuth(double longitude, double latitude)
         {
-           
+
             double lonRad = ToRadians(longitude);
             double latRad = ToRadians(latitude);
             double numerator = Math.Sin(lonRad);
@@ -375,7 +458,7 @@ namespace Photovoltic_API.Controllers
 
             return azimuthDeg;
         }
-       
+
         private static double ToRadians(double degrees)
         {
             return degrees * Math.PI / 180;
@@ -412,7 +495,7 @@ namespace Photovoltic_API.Controllers
 
             return angleFactor;
         }
-       
+
         private double GetDaylightDuration(DateTime Sunset, DateTime Sunrise)
         {
 

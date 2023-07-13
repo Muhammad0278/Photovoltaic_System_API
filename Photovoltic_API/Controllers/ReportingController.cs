@@ -14,6 +14,7 @@ using RouteAttribute = System.Web.Http.RouteAttribute;
 using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
 using Photovoltic_API.Models;
 using iTextSharp.text.pdf.parser;
+using Microsoft.Ajax.Utilities;
 //using System.Windows.Forms.DataVisualization.Charting;
 
 
@@ -26,6 +27,7 @@ namespace Photovoltic_API.Controllers
         static Font HeaderTitle = FontFactory.GetFont("Helvetica", 12, Font.BOLD, BaseColor.BLACK);
         static Font HeaderSubTitle = FontFactory.GetFont("Helvetica", 10, Font.BOLD, BaseColor.BLACK);
         static Font NormalFont = FontFactory.GetFont("Helvetica", 10, Font.NORMAL, BaseColor.BLACK);
+        static Font HeaderTitlebid = FontFactory.GetFont("Helvetica", 22, Font.BOLD, BaseColor.BLACK);
         // GET: Reporting
         DB_WeatherEntities DB = new DB_WeatherEntities();
         Helper_Reporting HP = new Helper_Reporting();
@@ -47,6 +49,24 @@ namespace Photovoltic_API.Controllers
                 res.Detail = "";
             }
            
+            return res;
+        }
+        public Response GetManualReport(int UserID, int ProjectID)
+        {
+            var res = new Response();
+            var Path = GenerateManualReport(UserID,ProjectID);
+            if (Path != "")
+            {
+                res.Code = 200;
+                res.Detail = Path;
+
+            }
+            else
+            {
+                res.Code = 401;
+                res.Detail = "";
+            }
+
             return res;
         }
         public string GenerateReport(tbl_ProductAssignment objtable)
@@ -234,6 +254,260 @@ namespace Photovoltic_API.Controllers
            // json = _jss.Serialize(res);
             return json;
 
+        }
+        public string GenerateManualReport(int UserID,int ProjectID)
+        {
+            var json = "";
+            var res = new Response();
+
+            JavaScriptSerializer _jss = new JavaScriptSerializer();
+            try
+            {
+                //var query = (from ass in DB.tbl_ProductAssignment
+                //             join proj in DB.tbl_Projects on ass.ProjectID equals proj.ProjectID
+                //             join prod in DB.tbl_Products on ass.ProductID equals prod.ProductID
+                //             where proj.IsActive == true && ass.ID == Convert.ToInt32(objtable.ID) && ass.UserID == Convert.ToInt32(objtable.UserID) && ass.ProjectID == Convert.ToInt32(objtable.ProjectID)
+                //             select new { ass, proj, prod }).FirstOrDefault();
+
+                var newguid = Guid.NewGuid();
+                 #region  Directory Information
+                string folder = HttpContext.Current.Server.MapPath("~/TempReport");
+                string Chartfolder = HttpContext.Current.Server.MapPath("~/TempPdf");
+                System.IO.DirectoryInfo Chartdir = new System.IO.DirectoryInfo(Chartfolder);
+                string path = "/TempReport/Project_Report_" + newguid + ".pdf";
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(folder);
+                folder = HttpContext.Current.Server.MapPath("~/" + path);
+                if (!dir.Exists)
+                    dir.Create();
+
+                var exfiles = dir.GetFiles();
+                foreach (var item in exfiles)
+                {
+                    try
+                    {
+                        item.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        // this means the file is in use...no biggie...we will get it next time.
+                        continue;
+                    }
+
+                }
+
+                if (!Chartdir.Exists)
+                    Chartdir.Create();
+
+                var exfilesChar = Chartdir.GetFiles();
+                foreach (var item in exfilesChar)
+                {
+                    try
+                    {
+                        item.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        // this means the file is in use...no biggie...we will get it next time.
+                        continue;
+                    }
+
+                }
+                #endregion
+
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    Document document = new Document(PageSize.A4, 10, 10, 20, 20);
+                    iTextSharp.text.pdf.PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+                    //PAPResultPrintHeaderFooter printheaderFooter = new PAPResultPrintHeaderFooter();
+
+                    //PrintHeaderFooter printheaderFooter = new PrintHeaderFooter();
+                    //writer.PageEvent = printheaderFooter;
+
+                    document.Open();
+                    var docSize = document.PageSize;
+                    //  document.SetMargins(20, 20, 100, 20);
+
+                    var MainTable = new PdfPTable(1);
+                    MainTable.WidthPercentage = 100;
+                    MainTable.KeepTogether = true;
+                    MainTable.SplitLate = false;
+                    MainTable.DefaultCell.Padding = 0;
+
+                    var MainFianlBody = HP.CreateTable(1, Rectangle.NO_BORDER, 100f, 0f, 0f);
+
+                    //  MainFianlBody.HeaderRows = 1;
+                    var MainHeader = HP.CreateTable(new float[] { 1.5f, 0.5f }, Rectangle.NO_BORDER, 95f, 0f, 0f);
+                    string TestCode = string.Empty;
+                    string InstrumentName = string.Empty;
+
+                    var SubHeader = HP.CreateTable(1, Rectangle.NO_BORDER, 90f, 0f, 0f);
+
+                    SubHeader.AddCell(HP.CreateCell("Company Name: ABC LTD ", HeaderSubTitle, 0, Element.ALIGN_LEFT));
+                    SubHeader.AddCell(HP.CreateCell("Address: MKT 204 Hill ", HeaderSubTitle, 0, Element.ALIGN_LEFT));
+                    SubHeader.AddCell(HP.CreateCell("City:Chemnitz", HeaderSubTitle, 0, Element.ALIGN_LEFT));
+                    SubHeader.AddCell(HP.CreateCell("Mob: 1234567", HeaderSubTitle, 0, Element.ALIGN_LEFT));
+                    string period = "Period:  Instrument: " + InstrumentName;
+                    SubHeader.AddCell(HP.CreateCell("Email: abc@gmail.com\t\t", HeaderSubTitle, 0, Element.ALIGN_LEFT));
+                    SubHeader.AddCell(HP.CreateCell("\n", HeaderSubTitle, 0, Element.ALIGN_LEFT));
+                    MainHeader.AddCell(HP.CreateCell("PVS", HeaderTitlebid, 0, Element.ALIGN_LEFT));
+                    MainHeader.AddCell(HP.CreateCellPadding(SubHeader, 0f, 0f, 0f, 0f, 0f));
+                    MainFianlBody.AddCell(HP.CreateCellPadding(MainHeader, 0f, 0f, 0f, 1f, 0f));
+
+                    var tbldata = (from ass in DB.tbl_ProductAssignment
+                                 join proj in DB.tbl_Projects on ass.ProjectID equals proj.ProjectID
+                                 join prod in DB.tbl_Products on ass.ProductID equals prod.ProductID
+                                 where proj.IsActive == true && ass.ProjectID == ProjectID && ass.UserID == UserID
+                                   select new
+                                 {
+                                     ass,
+                                     proj,
+                                     prod
+
+                                 }).ToList();
+                    foreach (var item in tbldata)
+                    {
+                        var tblbody = HP.CreateTable(new float[] { 1f }, Rectangle.NO_BORDER, 85f, 5f, 10f);
+
+                        var tblWeather = DB.tbl_WeatherData.Where(x => x.ProductAssignmentID == item.ass.ID && x.ProjectID == ProjectID ).ToList();
+
+                        //MainFianlBody.AddCell(CreatePaddingCellBorderMedication("Principle Diagnostics LLC 2550 Brodhead Rd, Suite 105 Bethlehem, PA 18020", HeaderTitle, 0, Element.ALIGN_LEFT, 2f, 1f, 0f, 0f, 0f, 0f, 2f, 0f, new BaseColor(224, 224, 224), 0));
+                        //  tblbody.AddCell(HP.CreatePaddingCellBorder(dtStart.ToShortDateString() + " - " + dtEnd.ToShortDateString(), Patientinform, 0, Element.ALIGN_LEFT, 0f, 5f, 0f, 0f, 0f, 0f, 2f, 0f, new BaseColor(225, 225, 225), 0));
+                        var CHunksVlaue1 = HP._ParaChunks("Project Name: " + item.proj.ProjectName, "", HeaderSubTitle, NormalFont);
+                        tblbody.AddCell(HP.CreateCell(CHunksVlaue1, NormalFont, 0, 0));
+
+                        var PCHunksVlaue1 = HP._ParaChunks("Product Name: ", item.prod.ProductName, HeaderSubTitle, NormalFont);
+                        tblbody.AddCell(HP.CreateCell(PCHunksVlaue1, NormalFont, 0, 0));
+
+                        var Wattage = HP._ParaChunks("Wattage: ", Convert.ToString(item.prod.Wattage), HeaderSubTitle, NormalFont);
+                        tblbody.AddCell(HP.CreateCell(Wattage, NormalFont, 0, 0));
+
+                        var Warranty = HP._ParaChunks("Warranty Years: ", Convert.ToString(item.prod.WarrantyYears), HeaderSubTitle, NormalFont);
+                        tblbody.AddCell(HP.CreateCell(Warranty, NormalFont, 0, 0));
+
+                        var Price = HP._ParaChunks("Price: ", Convert.ToString(item.prod.Price), HeaderSubTitle, NormalFont);
+                        tblbody.AddCell(HP.CreateCell(Price, NormalFont, 0, 0));
+
+                        var Power = HP._ParaChunks("Power Peak: ", Convert.ToString(item.prod.Powerpeak), HeaderSubTitle, NormalFont);
+                        tblbody.AddCell(HP.CreateCell(Power, NormalFont, 0, 0));
+
+                      //  MainFianlBody.AddCell(HP.CreateCellPadding(tblbody, 0f, 0f, 0f, 0f, 0f));
+                        // MainFianlBody.AddCell("This is the main");
+
+
+                        //var ChartPath = GetChart1(tblWeather);
+                        //string add = HttpContext.Current.Server.MapPath("~/" + ChartPath);
+                        //iTextSharp.text.Image Graphlogo = iTextSharp.text.Image.GetInstance(add, true);
+
+                        //var GraphlogoCell = new PdfPCell();
+                        //GraphlogoCell.PaddingTop = 0f;
+                        //GraphlogoCell.BorderWidthBottom = 0;
+                        //GraphlogoCell.BorderWidthLeft = 0;
+                        //GraphlogoCell.BorderWidthRight = 0;
+                        //GraphlogoCell.BorderWidthTop = 0;
+                        //GraphlogoCell.AddElement(Graphlogo);
+                        //MainFianlBody.AddCell(GraphlogoCell);
+
+
+                        //var tblresultinfo = HP.CreateTable(new float[] { 1f, 1f, 1f, 1f, 1f }, Rectangle.NO_BORDER, 90f, 5f, 5f);
+                        //tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Date/Time", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+                        //tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Solar Irradiance ", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+                        //tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Sunrise", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+                        //tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Sunrise", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+
+                        //tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Electricity", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+                        //tblresultinfo.HeaderRows = 1;
+                        //foreach (var item in tblWeather)
+                        //{
+                        //    tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToDateTime(item.CreatedDate).ToString("dd MM yyyy"), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                        //    tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToString(item.SolarIrradiance_Value), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                        //    tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToDateTime(item.Sunrise).ToString("dd MM yyyy"), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                        //    tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToDateTime(item.Sunset).ToString("dd MM yyyy"), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                        //    tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(item.CalElectricity, NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                        //}
+                        var tblresultinfo = HP.CreateTable(1, Rectangle.NO_BORDER, 100f, 0f, 0f);
+                        tblresultinfo = getProductInfo(item.ass);
+
+                        MainFianlBody.AddCell(HP.CreateCellPadding(tblbody, 0f, 0f, 0f, 0f, 0f));
+                        MainFianlBody.AddCell(HP.CreateCellPadding(tblresultinfo, 0f, 0f, 0f, 0f, 0f));
+
+
+                    }
+
+
+                    document.Add(MainFianlBody);
+                    document.Close();
+                    writer.Close();
+                    byte[] content = memoryStream.ToArray();
+
+                    // Write out PDF from memory stream.
+                    using (FileStream fs = File.Create(folder))
+                    {
+                        fs.Write(content, 0, (int)content.Length);
+                    }
+
+
+
+                    json = folder;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                res.Code = 404;
+                res.Message = "Bad Resquest";
+                res.Detail = ex.Message;
+            }
+            // json = _jss.Serialize(res);
+            return json;
+
+        }
+        public static PdfPTable getProductInfo(tbl_ProductAssignment objtable)
+        {
+            DB_WeatherEntities DB = new DB_WeatherEntities();
+            Helper_Reporting HP = new Helper_Reporting();
+          
+            var MainFianlBody = HP.CreateTable(1, Rectangle.NO_BORDER, 100f, 0f, 0f);
+            var tblbody = HP.CreateTable(new float[] { 1f }, Rectangle.NO_BORDER, 85f, 5f, 10f);
+            var tblWeather = DB.tbl_WeatherData.Where(x => x.ProductAssignmentID == objtable.ID && x.ProjectID == objtable.ProjectID && x.UserID == objtable.UserID).ToList();
+
+          
+
+            var ChartPath = GetChart1(tblWeather);
+            string add = HttpContext.Current.Server.MapPath("~/" + ChartPath);
+            iTextSharp.text.Image Graphlogo = iTextSharp.text.Image.GetInstance(add, true);
+
+            var GraphlogoCell = new PdfPCell();
+            GraphlogoCell.PaddingTop = 0f;
+            GraphlogoCell.BorderWidthBottom = 0;
+            GraphlogoCell.BorderWidthLeft = 0;
+            GraphlogoCell.BorderWidthRight = 0;
+            GraphlogoCell.BorderWidthTop = 0;
+            GraphlogoCell.AddElement(Graphlogo);
+            MainFianlBody.AddCell(GraphlogoCell);
+
+
+            var tblresultinfo = HP.CreateTable(new float[] { 1f, 1f, 1f, 1f, 1f }, Rectangle.NO_BORDER, 90f, 5f, 5f);
+            tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Date/Time", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+            tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Solar Irradiance ", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+            tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Sunrise", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+            tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Sunrise", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+
+            tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor("Electricity", NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 1f, 1f, 1f, 2f, 0f, new BaseColor(244, 244, 244), new BaseColor(0, 0, 0)));
+            tblresultinfo.HeaderRows = 1;
+            foreach (var item in tblWeather)
+            {
+                tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToDateTime(item.CreatedDate).ToString("dd MM yyyy"), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 1f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToString(item.SolarIrradiance_Value), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToDateTime(item.Sunrise).ToString("dd MM yyyy"), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(Convert.ToDateTime(item.Sunset).ToString("dd MM yyyy"), NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+                tblresultinfo.AddCell(HP.CreatePaddingCellBordercolor(item.CalElectricity, NormalFont, 0, Element.ALIGN_LEFT, 1f, 4f, 0f, 0f, 1f, 1f, 2f, 0f, new BaseColor(255, 255, 255), new BaseColor(0, 0, 0)));
+            }
+
+
+
+            MainFianlBody.AddCell(HP.CreateCellPadding(tblresultinfo, 0f, 0f, 0f, 0f, 0f));
+            return MainFianlBody;
         }
         public static string GetChart1(List<tbl_WeatherData> _obj)
         {
