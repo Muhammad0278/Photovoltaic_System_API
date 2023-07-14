@@ -138,6 +138,10 @@
           <Property Name="State" Type="varchar" MaxLength="50" />
           <Property Name="ZipCode" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Function Name="GetWeatherByCoordinates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Latitude" Type="float" Mode="In" />
+          <Parameter Name="Longitude" Type="float" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_WeatherModelStoreContainer">
           <EntitySet Name="tbl_HistoryWeather" EntityType="Self.tbl_HistoryWeather" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ProductAssignment" EntityType="Self.tbl_ProductAssignment" Schema="dbo" store:Type="Tables" />
@@ -174,6 +178,10 @@
           <EntitySet Name="tbl_HistoryWeather" EntityType="DB_WeatherModel.tbl_HistoryWeather" />
           <EntitySet Name="tbl_WeatherData" EntityType="DB_WeatherModel.tbl_WeatherData" />
           <EntitySet Name="tbl_ProductAssignment" EntityType="DB_WeatherModel.tbl_ProductAssignment" />
+          <FunctionImport Name="GetWeatherByCoordinates" ReturnType="Collection(DB_WeatherModel.GetWeatherByCoordinates_Result)">
+            <Parameter Name="Latitude" Mode="In" Type="Double" />
+            <Parameter Name="Longitude" Mode="In" Type="Double" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="tbl_Projects">
           <Key>
@@ -291,6 +299,17 @@
           <Property Name="IsReportGenerate" Type="Boolean" />
           <Property Name="ReportPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="GetWeatherByCoordinates_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="Sunrise" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Sunset" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="SolarIrradiance_Value" Nullable="true" />
+          <Property Type="String" Name="SolarIrradiance_Unit" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SolarIrradiance_UnitType" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -436,6 +455,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetWeatherByCoordinates" FunctionName="DB_WeatherModel.Store.GetWeatherByCoordinates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_WeatherModel.GetWeatherByCoordinates_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Sunrise" ColumnName="Sunrise" />
+                <ScalarProperty Name="Sunset" ColumnName="Sunset" />
+                <ScalarProperty Name="SolarIrradiance_Value" ColumnName="SolarIrradiance_Value" />
+                <ScalarProperty Name="SolarIrradiance_Unit" ColumnName="SolarIrradiance_Unit" />
+                <ScalarProperty Name="SolarIrradiance_UnitType" ColumnName="SolarIrradiance_UnitType" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

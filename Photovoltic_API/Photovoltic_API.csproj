@@ -262,6 +262,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetWeatherByCoordinates_Result.cs">
+      <DependentUpon>Photovoltic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Photovoltic.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

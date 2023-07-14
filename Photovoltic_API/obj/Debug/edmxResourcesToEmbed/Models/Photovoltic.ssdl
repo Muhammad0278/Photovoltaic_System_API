@@ -133,6 +133,10 @@
     <Property Name="State" Type="varchar" MaxLength="50" />
     <Property Name="ZipCode" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Function Name="GetWeatherByCoordinates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Latitude" Type="float" Mode="In" />
+    <Parameter Name="Longitude" Type="float" Mode="In" />
+  </Function>
   <EntityContainer Name="DB_WeatherModelStoreContainer">
     <EntitySet Name="tbl_HistoryWeather" EntityType="Self.tbl_HistoryWeather" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ProductAssignment" EntityType="Self.tbl_ProductAssignment" Schema="dbo" store:Type="Tables" />

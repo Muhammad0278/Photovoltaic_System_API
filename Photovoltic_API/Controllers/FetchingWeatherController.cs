@@ -21,6 +21,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Data.Entity.Core.Objects;
 using System.Net.Mail;
 using System.Globalization;
+using Org.BouncyCastle.Asn1;
 
 namespace Photovoltic_API.Controllers
 {
@@ -31,9 +32,9 @@ namespace Photovoltic_API.Controllers
 
         [Route("GenerateManualReport")]
         [HttpGet]
-        public async Task<IHttpActionResult> ReportGeneration(int UserID, int ProjectID)
+        public  object ReportGeneration(int UserID, int ProjectID)
         {
-            //  await GetWeatherData();
+            // await GetWeatherData();
             var json = "";
             var resp = new Response();
             JavaScriptSerializer _jss = new JavaScriptSerializer();
@@ -73,7 +74,7 @@ namespace Photovoltic_API.Controllers
                         var tblUser = DB.Users.Where(x => x.Id == UserID).FirstOrDefault();
                         if (tblUser != null)
                         {
-                            SendEmail.Send_Email(tblUser.Email, "Report Status", "Dear "+ tblUser.UserName+ "<br> please check you detail about energy generation in attachment.", report.Detail);
+                            SendEmail.Send_Email(tblUser.Email, "Report Status", "Dear "+ tblUser.UserName+ " please check you detail about energy generation in attachment.", report.Detail);
                         }
 
 
@@ -100,9 +101,9 @@ namespace Photovoltic_API.Controllers
                 resp.Status = "Bad Resquest";
                 resp.Message = ex.Message;
             }
-            return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", data = json });
-            // json = _jss.Serialize(resp);
-            // return json;
+         // return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", data = json });
+             json = _jss.Serialize(resp);
+             return json;
         }
 
         [Route("GetMapProductsByProID")]
@@ -205,8 +206,8 @@ namespace Photovoltic_API.Controllers
                     CultureInfo culture = CultureInfo.InvariantCulture;
 
 
-                    double targetLatitude = Convert.ToDouble(_item.Latitude, culture);   // The target latitude value
-                    double targetLongitude = Convert.ToDouble(_item.Longitude, culture); // The target longitude value
+                    double targetLatitude = Convert.ToDouble(_item.Latitude);   // The target latitude value
+                    double targetLongitude = Convert.ToDouble(_item.Longitude); // The target longitude value
                     DateTime dt = DateTime.Now.Date;
                     var tblProjects = DB.tbl_HistoryWeather.Where(x => x.Latitude == targetLatitude && x.Longitude == targetLongitude && EntityFunctions.TruncateTime(x.CreatedDate) == dt).FirstOrDefault();
 
@@ -332,9 +333,15 @@ namespace Photovoltic_API.Controllers
                     string orientation = Prod.orientation;
                     double inclination = Convert.ToDouble(Prod.inclination);
                     double area = Convert.ToDouble(Prod.area);
-                    double lat = Convert.ToDouble(PASS.LatitudeNew, culture);
-                    double lon = Convert.ToDouble(PASS.LongitudeNew, culture);
-                    var tblWeather = DB.tbl_HistoryWeather.Where(x => x.Latitude == lat && x.Longitude == lon).ToList();
+                    double lat = Convert.ToDouble(PASS.LatitudeNew);
+                    double lon = Convert.ToDouble(PASS.LongitudeNew);
+
+                    var tblWeather = DB.GetWeatherByCoordinates(lat, lon).ToList();
+                   
+                    //var tblWeather = (from ass in DB.tbl_HistoryWeather
+
+                    //                  where ass.Latitude == lat && ass.Longitude == lon 
+                    //           select ass).ToList();
                     foreach (var _item in tblWeather)
                     {
                         double power = powerPeak * (Convert.ToDouble(_item.SolarIrradiance_Value) / 1000.0) * (area / 100.0);
@@ -348,8 +355,8 @@ namespace Photovoltic_API.Controllers
                         wd.ProjectName = PASS.ProjectName;
                         wd.ProductID = PASS.ProductID;
                         wd.ProductName = PASS.ProductName;
-                        wd.Latitude = Convert.ToDouble(PASS.LatitudeNew, culture);
-                        wd.Longitude = Convert.ToDouble(PASS.LongitudeNew, culture);
+                        wd.Latitude = Convert.ToDouble(PASS.LatitudeNew);
+                        wd.Longitude = Convert.ToDouble(PASS.LongitudeNew);
                         wd.Sunrise = Convert.ToDateTime(_item.Sunrise);
                         wd.Sunset = Convert.ToDateTime(_item.Sunset);
                         wd.SolarIrradiance_Value = Convert.ToDouble(_item.SolarIrradiance_Value);

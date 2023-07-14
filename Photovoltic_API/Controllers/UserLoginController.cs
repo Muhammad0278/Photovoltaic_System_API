@@ -108,13 +108,13 @@ namespace Photovoltic_API.Controllers
 
         [Route("UpdateUser")]
         [HttpPut]
-        public object UpdateUser(int id, User userDto)
+        public object UpdateUser( User userDto)
         {
             var json = "";
             var resp = new Response();
             JavaScriptSerializer _jss = new JavaScriptSerializer();
 
-            var user = DB.Users.FirstOrDefault(u => u.Id == id);
+            var user = DB.Users.FirstOrDefault(u => u.Id == userDto.Id);
 
             if (user == null)
             {

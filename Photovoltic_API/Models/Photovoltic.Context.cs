@@ -12,6 +12,8 @@ namespace Photovoltic_API.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DB_WeatherEntities : DbContext
     {
@@ -31,5 +33,18 @@ namespace Photovoltic_API.Models
         public virtual DbSet<tbl_HistoryWeather> tbl_HistoryWeather { get; set; }
         public virtual DbSet<tbl_WeatherData> tbl_WeatherData { get; set; }
         public virtual DbSet<tbl_ProductAssignment> tbl_ProductAssignment { get; set; }
+    
+        public virtual ObjectResult<GetWeatherByCoordinates_Result> GetWeatherByCoordinates(Nullable<double> latitude, Nullable<double> longitude)
+        {
+            var latitudeParameter = latitude.HasValue ?
+                new ObjectParameter("Latitude", latitude) :
+                new ObjectParameter("Latitude", typeof(double));
+    
+            var longitudeParameter = longitude.HasValue ?
+                new ObjectParameter("Longitude", longitude) :
+                new ObjectParameter("Longitude", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetWeatherByCoordinates_Result>("GetWeatherByCoordinates", latitudeParameter, longitudeParameter);
+        }
     }
 }
