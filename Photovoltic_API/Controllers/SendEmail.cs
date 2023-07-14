@@ -32,9 +32,9 @@ namespace Photovoltic_API.Controllers
                 {
                     client.EnableSsl = true;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("7a6953d774b837", "087d6898347875");
+                    client.Credentials = new NetworkCredential("7a6953d774b8371", "087d68983478751");
 
-                    using (var message = new MailMessage("marslankhan1985@gmail.com", To, Subject, Body))
+                    using (var message = new MailMessage("test@gmail.com", To, Subject, Body))
                     {
                         try
                         {
